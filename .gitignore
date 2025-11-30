@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs (from old React setup)
+build/
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local development
+.env
+.env.local
