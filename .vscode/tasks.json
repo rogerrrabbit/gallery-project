@@ -2,10 +2,17 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "npm",
-            "script": "dev",
-            "label": "npm: dev",
-            "detail": "vite",
+            "label": "Start Local Server",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "-m",
+                "http.server",
+                "5500"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "isBackground": true,
             "problemMatcher": {
                 "owner": "custom",
@@ -14,8 +21,8 @@
                 },
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": "VITE v",
-                    "endsPattern": "Local:"
+                    "beginsPattern": "Serving HTTP",
+                    "endsPattern": "Serving HTTP"
                 }
             }
         }
