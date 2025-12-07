@@ -23,3 +23,7 @@ npm-debug.log*
 # Local development
 .env
 .env.local
+
+# Gallery data
+japon25.json
+japon25/

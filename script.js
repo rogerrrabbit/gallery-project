@@ -5,7 +5,7 @@ let map = null;
 // Load gallery data
 async function loadGalleryData() {
     try {
-        const response = await fetch('gallery-data.json');
+        const response = await fetch('japon25.json');
         galleryData = await response.json();
         renderGallery();
         initMap();
@@ -29,15 +29,19 @@ function renderGallery() {
         card.className = 'card';
         card.onclick = () => openModal(item);
 
+        // Build card meta (date • origin) - only show parts that exist
+        const metaParts = [item.date, item.origin].filter(Boolean);
+        const metaText = metaParts.join(' • ');
+
         card.innerHTML = `
             <div class="card-inner">
                 <div class="card-front">
-                    <img src="${item.image}" alt="${item.title}">
+                    <img src="${item.image}" alt="${item.title || ''}">
                 </div>
                 <div class="card-back">
-                    <h3>${item.title}</h3>
-                    <p class="card-meta">${item.year} • ${item.origin}</p>
-                    <p>${item.shortDescription}</p>
+                    ${item.title ? `<h3>${item.title}</h3>` : ''}
+                    ${metaText ? `<p class="card-meta">${metaText}</p>` : ''}
+                    ${item.shortDescription ? `<p>${item.shortDescription}</p>` : ''}
                 </div>
             </div>
         `;
@@ -98,8 +102,8 @@ function initMap() {
         const el = document.createElement('img');
         el.className = 'map-marker';
         el.src = item.image;
-        el.alt = item.title;
-        el.title = item.title;
+        el.alt = item.title || '';
+        el.title = item.title || '';
 
         // Add click handler to open modal
         el.addEventListener('click', (e) => {
@@ -132,10 +136,21 @@ function openModal(item) {
     const modalDescription = document.getElementById('modal-description');
 
     modalImg.src = item.image;
-    modalImg.alt = item.title;
-    modalTitle.textContent = item.title;
-    modalMeta.textContent = `${item.year} • ${item.origin}`;
-    modalDescription.textContent = item.fullDescription;
+    modalImg.alt = item.title || '';
+
+    // Handle optional title
+    modalTitle.textContent = item.title || '';
+    modalTitle.style.display = item.title ? '' : 'none';
+
+    // Handle optional meta (date • origin)
+    const metaParts = [item.date, item.origin].filter(Boolean);
+    const metaText = metaParts.join(' • ');
+    modalMeta.textContent = metaText;
+    modalMeta.style.display = metaText ? '' : 'none';
+
+    // Handle optional description
+    modalDescription.textContent = item.fullDescription || '';
+    modalDescription.style.display = item.fullDescription ? '' : 'none';
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
