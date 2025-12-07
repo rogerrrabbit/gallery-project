@@ -1,5 +1,6 @@
 // Gallery data storage
 let galleryData = [];
+let map = null;
 
 // Load gallery data
 async function loadGalleryData() {
@@ -7,6 +8,7 @@ async function loadGalleryData() {
         const response = await fetch('gallery-data.json');
         galleryData = await response.json();
         renderGallery();
+        initMap();
     } catch (error) {
         console.error('Error loading gallery data:', error);
     }
@@ -15,7 +17,12 @@ async function loadGalleryData() {
 // Render gallery cards
 function renderGallery() {
     const gallery = document.getElementById('gallery');
+    // Keep the map container, clear only cards
+    const mapContainer = document.getElementById('map-container');
     gallery.innerHTML = '';
+    if (mapContainer) {
+        gallery.appendChild(mapContainer);
+    }
 
     galleryData.forEach(item => {
         const card = document.createElement('div');
@@ -36,6 +43,83 @@ function renderGallery() {
         `;
 
         gallery.appendChild(card);
+    });
+}
+
+// Initialize MapLibre GL map
+function initMap() {
+    const itemsWithCoords = galleryData.filter(item => item.coordinates);
+
+    // Hide map if no items have coordinates
+    const mapContainer = document.getElementById('map-container');
+    if (itemsWithCoords.length === 0) {
+        mapContainer.style.display = 'none';
+        return;
+    }
+
+    mapContainer.style.display = 'block';
+
+    // Initialize the map with OpenStreetMap tiles
+    map = new maplibregl.Map({
+        container: 'map',
+        style: {
+            version: 8,
+            sources: {
+                'osm': {
+                    type: 'raster',
+                    tiles: [
+                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+                    ],
+                    tileSize: 256,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }
+            },
+            layers: [
+                {
+                    id: 'osm-tiles',
+                    type: 'raster',
+                    source: 'osm',
+                    minzoom: 0,
+                    maxzoom: 19
+                }
+            ]
+        },
+        center: [0, 30],
+        zoom: 2
+    });
+
+    // Add markers for each item with coordinates
+    const bounds = new maplibregl.LngLatBounds();
+
+    itemsWithCoords.forEach(item => {
+        const { lat, lng } = item.coordinates;
+
+        // Create marker element with thumbnail image
+        const el = document.createElement('img');
+        el.className = 'map-marker';
+        el.src = item.image;
+        el.alt = item.title;
+        el.title = item.title;
+
+        // Add click handler to open modal
+        el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openModal(item);
+        });
+
+        // Add marker to map
+        new maplibregl.Marker({ element: el })
+            .setLngLat([lng, lat])
+            .addTo(map);
+
+        // Extend bounds to include this marker
+        bounds.extend([lng, lat]);
+    });
+
+    // Fit map to show all markers with padding
+    map.fitBounds(bounds, {
+        padding: 50,
+        maxZoom: 10
     });
 }
 

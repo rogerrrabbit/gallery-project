@@ -6,7 +6,11 @@
         "shortDescription": "Un appareil photo des années 60, témoin silencieux de milliers de souvenirs capturés.",
         "fullDescription": "Cette caméra vintage des années 1960 raconte l'histoire de la photographie analogique. Découverte dans un grenier parisien, elle porte encore les traces de son ancien propriétaire, un photographe amateur passionné. Ses mécanismes précis et son design intemporel en font un véritable objet d'art fonctionnel.",
         "year": "1962",
-        "origin": "Paris, France"
+        "origin": "Paris, France",
+        "coordinates": {
+            "lat": 48.8566,
+            "lng": 2.3522
+        }
     },
     {
         "id": "2",
@@ -33,7 +37,11 @@
         "shortDescription": "Un appareil photo à soufflet des années 30, symbole de l'élégance photographique d'antan.",
         "fullDescription": "Cet appareil photo à soufflet des années 1930 représente l'âge d'or de la photographie artisanale. Fabriqué en Allemagne, il était l'outil de prédilection des photographes professionnels de l'époque. Son mécanisme de précision et sa construction robuste en font un témoin exceptionnel de l'ingénierie photographique d'avant-guerre.",
         "year": "1935",
-        "origin": "Allemagne"
+        "origin": "Allemagne",
+        "coordinates": {
+            "lat": 52.5200,
+            "lng": 13.4050
+        }
     },
     {
         "id": "5",
@@ -42,7 +50,11 @@
         "shortDescription": "Une machine à écrire des années 50, compagne fidèle des écrivains et secrétaires.",
         "fullDescription": "Cette machine à écrire des années 1950 a servi dans un bureau d'avocat londonien pendant plus de vingt ans. Ses touches usées et son mécanisme encore fonctionnel racontent des milliers d'heures de frappe. Elle représente une époque où chaque lettre était pesée, chaque mot choisi avec soin, avant l'avènement de l'informatique.",
         "year": "1954",
-        "origin": "Londres, Angleterre"
+        "origin": "Londres, Angleterre",
+        "coordinates": {
+            "lat": 51.5074,
+            "lng": -0.1278
+        }
     },
     {
         "id": "6",
@@ -51,7 +63,11 @@
         "shortDescription": "Un poste radio des années 60, fenêtre sonore sur le monde d'hier.",
         "fullDescription": "Cette radio transistor des années 1960 était le lien avec le monde extérieur pour une famille de la banlieue américaine. Ses ondes courtes captaient les stations lointaines, apportant musique et nouvelles dans le salon familial. Son boîtier en bakélite et ses boutons chromés incarnent l'optimisme technologique de l'époque.",
         "year": "1965",
-        "origin": "États-Unis"
+        "origin": "États-Unis",
+        "coordinates": {
+            "lat": 40.7128,
+            "lng": -74.0060
+        }
     },
     {
         "id": "7",
@@ -60,7 +76,11 @@
         "shortDescription": "Un téléphone à cadran des années 50, symbole de communication d'une époque révolue.",
         "fullDescription": "Ce téléphone à cadran rotatif des années 1950 trônait dans l'entrée d'une maison bourgeoise de Lyon. Chaque appel était un événement, chaque conversation soigneusement pesée. Son poids imposant et sa sonnerie caractéristique rappellent une époque où la communication était un acte plus intentionnel et précieux.",
         "year": "1952",
-        "origin": "Lyon, France"
+        "origin": "Lyon, France",
+        "coordinates": {
+            "lat": 45.7640,
+            "lng": 4.8357
+        }
     },
     {
         "id": "8",
@@ -69,7 +89,11 @@
         "shortDescription": "Une horloge de bureau des années 40, gardienne silencieuse du temps qui passe.",
         "fullDescription": "Cette horloge de bureau Art Déco des années 1940 a rythmé la vie d'un bureau d'architecte parisien. Son mécanisme suisse de précision et son design géométrique reflètent l'esthétique moderniste de l'époque. Restaurée avec soin, elle continue de marquer les heures avec la même élégance qu'il y a 80 ans.",
         "year": "1943",
-        "origin": "Paris, France"
+        "origin": "Paris, France",
+        "coordinates": {
+            "lat": 48.8606,
+            "lng": 2.3376
+        }
     },
     {
         "id": "9",
@@ -78,6 +102,10 @@
         "shortDescription": "Des lunettes de soleil des années 70, accessoire de mode emblématique d'une décennie colorée.",
         "fullDescription": "Ces lunettes de soleil oversize des années 1970 appartenaient à une actrice de cinéma européen. Leurs verres teintés et leur monture imposante incarnent l'esprit glamour et rebelle de cette décennie. Retrouvées dans une boutique vintage de Rome, elles portent encore l'aura mystérieuse de leur ancienne propriétaire.",
         "year": "1975",
-        "origin": "Rome, Italie"
+        "origin": "Rome, Italie",
+        "coordinates": {
+            "lat": 41.9028,
+            "lng": 12.4964
+        }
     }
 ]

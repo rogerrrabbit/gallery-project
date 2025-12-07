@@ -24,7 +24,7 @@ header h1 {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 header p {
@@ -51,6 +51,37 @@ header p {
     cursor: pointer;
 }
 
+/* ===== Map Tile ===== */
+.map-tile {
+    grid-column: span 3;
+    aspect-ratio: 3 / 1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background: white;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.map-marker {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    object-fit: cover;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.map-marker:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
 .card-inner {
     position: relative;
     width: 100%;
@@ -71,7 +102,7 @@ header p {
     backface-visibility: hidden;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .card-front {
@@ -130,6 +161,7 @@ header p {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -153,7 +185,7 @@ header p {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     animation: modalZoomIn 0.3s ease-out;
 }
 
@@ -162,6 +194,7 @@ header p {
         transform: scale(0.9);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -245,16 +278,21 @@ header p {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 1.5rem;
     }
-    
+
+    .map-tile {
+        grid-column: span 2;
+        aspect-ratio: 2 / 1;
+    }
+
     .modal-inner {
         flex-direction: column;
     }
-    
+
     .modal-image,
     .modal-info {
         flex: 1 1 auto;
     }
-    
+
     .modal-info {
         padding: 2rem 1.5rem;
     }
@@ -264,31 +302,31 @@ header p {
     header h1 {
         font-size: 2rem;
     }
-    
+
     header p {
         font-size: 1rem;
     }
-    
+
     .gallery {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1rem;
     }
-    
+
     .card-back {
         padding: 1.5rem;
     }
-    
+
     .card-back h3 {
         font-size: 1.2rem;
     }
-    
+
     .modal-content {
         width: 100vw;
         height: 100vh;
         margin: 0;
         border-radius: 0;
     }
-    
+
     .modal-info h2 {
         font-size: 1.5rem;
     }
@@ -297,5 +335,15 @@ header p {
 @media (max-width: 480px) {
     .gallery {
         grid-template-columns: 1fr;
+    }
+
+    .map-tile {
+        grid-column: span 1;
+        aspect-ratio: 1;
+    }
+
+    .map-marker {
+        width: 40px;
+        height: 40px;
     }
 }

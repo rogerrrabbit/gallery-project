@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Objets Trouvés - Galerie Vintage</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -15,6 +18,10 @@
 
     <!-- Gallery Grid -->
     <main class="gallery" id="gallery">
+        <!-- Map Container -->
+        <div class="map-tile" id="map-container">
+            <div id="map"></div>
+        </div>
         <!-- Gallery items will be dynamically inserted here -->
     </main>
 
@@ -36,6 +43,8 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
