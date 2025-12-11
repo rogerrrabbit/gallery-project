@@ -3,6 +3,8 @@ let filteredData = [];
 let map = null;
 let imageObserver = null;
 let imageMarkers = []; // Store image marker instances
+let bannersEnabled = true; // Default to true
+let mapEnabled = true; // Default to true
 
 // Get thumbnail path for an image
 // e.g., "japon25/photo.jpg" -> "japon25/thumbnails/photo.jpg"
@@ -18,16 +20,64 @@ function getThumbnailPath(imagePath) {
 }
 
 // Load gallery data
+// Load gallery data
 async function loadGalleryData() {
     try {
         const response = await fetch('japon25.json');
-        galleryData = await response.json();
+        const data = await response.json();
+
+        if (data.header) {
+            applyHeaderSettings(data.header);
+            galleryData = data.images || [];
+        } else {
+            galleryData = Array.isArray(data) ? data : [];
+        }
+
         filteredData = galleryData;
         setupImageObserver();
-        initMap();
+
+        if (mapEnabled) {
+            initMap();
+        } else {
+            const mapContainer = document.getElementById('map-container');
+            if (mapContainer) mapContainer.style.display = 'none';
+            renderGallery();
+        }
     } catch (error) {
         console.error('Error loading gallery data:', error);
     }
+}
+
+function applyHeaderSettings(header) {
+    if (header.title) {
+        const h1 = document.querySelector('header h1');
+        if (h1) h1.textContent = header.title;
+        document.title = header.title;
+    }
+    if (header.subtitle) {
+        const p = document.querySelector('header p');
+        if (p) p.textContent = header.subtitle;
+    }
+
+    if (header.colorTheme) {
+        document.documentElement.style.setProperty('--primary-color', header.colorTheme);
+        // Derive secondary (darker) and banner text color
+        const secondary = adjustColor(header.colorTheme, -40);
+        document.documentElement.style.setProperty('--secondary-color', secondary);
+        document.documentElement.style.setProperty('--banner-text-color', secondary);
+    }
+
+    if (typeof header.showMap !== 'undefined') {
+        mapEnabled = header.showMap;
+    }
+
+    if (typeof header.showBanners !== 'undefined') {
+        bannersEnabled = header.showBanners;
+    }
+}
+
+function adjustColor(color, amount) {
+    return '#' + color.replace(/^#/, '').replace(/../g, color => ('0' + Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
 }
 
 // Setup IntersectionObserver for lazy loading images
@@ -59,7 +109,18 @@ function renderGallery() {
         gallery.appendChild(mapContainer);
     }
 
+    let lastOrigin = null;
+
     filteredData.forEach(item => {
+        // Check for origin change and insert banner
+        if (bannersEnabled && item.origin && item.origin !== lastOrigin) {
+            const banner = document.createElement('div');
+            banner.className = 'city-banner';
+            banner.innerHTML = `<span>${item.origin}</span>`;
+            gallery.appendChild(banner);
+            lastOrigin = item.origin;
+        }
+
         const card = document.createElement('div');
         card.className = 'card';
         card.onclick = () => openModal(item);
