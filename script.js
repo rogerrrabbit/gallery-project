@@ -306,22 +306,20 @@ function initMap() {
         style: {
             version: 8,
             sources: {
-                'carto-dark': {
+                'stamen-toner-lite': {
                     type: 'raster',
                     tiles: [
-                        'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-                        'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-                        'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png'
+                        'https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}@2x.png'
                     ],
                     tileSize: 256,
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.stamen.com/">Stamen Design</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }
             },
             layers: [
                 {
-                    id: 'carto-dark-tiles',
+                    id: 'stamen-toner-lite-tiles',
                     type: 'raster',
-                    source: 'carto-dark',
+                    source: 'stamen-toner-lite',
                     minzoom: 0,
                     maxzoom: 20
                 }
@@ -330,6 +328,12 @@ function initMap() {
         center: [0, 30],
         zoom: 2
     });
+
+    // Get theme colors from CSS variables
+    const styles = getComputedStyle(document.documentElement);
+    const primaryColor = styles.getPropertyValue('--primary-color').trim() || '#667eea';
+    const secondaryColor = styles.getPropertyValue('--secondary-color').trim() || '#5a67d8';
+    const bannerColor = styles.getPropertyValue('--banner-text-color').trim() || '#4c51bf';
 
     map.on('load', () => {
         // Add travel lines source (curves between cities)
@@ -348,7 +352,7 @@ function initMap() {
                 'line-join': 'round'
             },
             paint: {
-                'line-color': '#a5b4fc',
+                'line-color': primaryColor,
                 'line-width': 6,
                 // Initial dash array
                 'line-dasharray': [0, 2]
@@ -404,9 +408,9 @@ function initMap() {
                 'circle-color': [
                     'step',
                     ['get', 'point_count'],
-                    '#667eea',  // color for count < 10
-                    10, '#5a67d8',  // color for count >= 10
-                    50, '#4c51bf'   // color for count >= 50
+                    primaryColor,  // color for count < 10
+                    10, secondaryColor,  // color for count >= 10
+                    50, bannerColor   // color for count >= 50
                 ],
                 'circle-radius': [
                     'step',
@@ -525,15 +529,28 @@ function initMap() {
             }
         });
 
+
+
         // Click on cluster to zoom and fit all elements inside
         map.on('click', 'clusters', (e) => {
             const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+            if (!features.length) return;
+
             const clusterId = features[0].properties.cluster_id;
             const pointCount = features[0].properties.point_count;
 
+            // Get source
+            const source = map.getSource('photos');
+            if (!source) return;
+
             // Get all leaves (points) in this cluster
-            map.getSource('photos').getClusterLeaves(clusterId, pointCount, 0, (err, leaves) => {
-                if (err || !leaves || leaves.length === 0) return;
+            source.getClusterLeaves(clusterId, pointCount, 0, (err, leaves) => {
+                if (err) {
+                    console.error('Error getting cluster leaves:', err);
+                    return;
+                }
+                console.log('Cluster leaves:', leaves); // Debugging
+                if (!leaves || leaves.length === 0) return;
 
                 // Calculate bounds to fit all points in the cluster
                 const bounds = new maplibregl.LngLatBounds();
@@ -542,8 +559,9 @@ function initMap() {
                 });
 
                 map.fitBounds(bounds, {
-                    padding: 80,
-                    maxZoom: 18
+                    padding: { top: 150, bottom: 50, left: 50, right: 50 },
+                    maxZoom: 18,
+                    speed: 1.2
                 });
             });
         });
@@ -639,6 +657,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close button
     document.getElementById('modal-close').addEventListener('click', closeModal);
+
+    // View Toggle
+    const viewToggle = document.getElementById('view-toggle');
+    if (viewToggle) {
+        viewToggle.addEventListener('click', () => {
+            document.body.classList.toggle('view-split');
+
+            // Adjust button icon state
+            const isSplit = document.body.classList.contains('view-split');
+
+            // Icons
+            const splitIcon = `
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <line x1="9" y1="3" x2="9" y2="21" />
+                </svg>`;
+
+            const gridIcon = `
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                </svg>`;
+
+            viewToggle.innerHTML = isSplit ? gridIcon : splitIcon;
+            viewToggle.setAttribute('aria-label', isSplit ? 'Switch to Grid View' : 'Switch to Split View');
+
+            // Resize map after transition to ensure it fills the new container size
+            setTimeout(() => {
+                if (map) map.resize();
+            }, 350); // Slightly longer than transition
+        });
+    }
+
+    // Scroll Top Button
+    const scrollTopBtn = document.getElementById('scroll-top');
+    if (scrollTopBtn) {
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 
     // Click outside modal
     document.querySelector('.modal-overlay').addEventListener('click', closeModal);
