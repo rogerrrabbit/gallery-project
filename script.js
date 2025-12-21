@@ -9,7 +9,6 @@ let bannersEnabled = true; // Default to true
 let mapEnabled = true; // Default to true
 
 // Get thumbnail path for an image
-// e.g., "japon25/photo.jpg" -> "japon25/thumbnails/photo.jpg"
 function getThumbnailPath(imagePath) {
     const parts = imagePath.split('/');
     if (parts.length >= 2) {
@@ -25,7 +24,7 @@ function getThumbnailPath(imagePath) {
 // Load gallery data
 async function loadGalleryData() {
     try {
-        const response = await fetch('japon25.json');
+        const response = await fetch('Japon2025.json');
         const data = await response.json();
 
         if (data.header) {
@@ -512,8 +511,8 @@ function updateModalContent(item) {
     modalTitle.textContent = item.title || '';
     modalTitle.style.display = item.title ? '' : 'none';
 
-    // Handle optional meta (date • origin)
-    const metaParts = [item.date, item.origin].filter(Boolean);
+    // Handle optional meta (date • time • origin)
+    const metaParts = [item.date, item.time, item.origin].filter(Boolean);
     const metaText = metaParts.join(' • ');
     modalMeta.textContent = metaText;
     modalMeta.style.display = metaText ? '' : 'none';
