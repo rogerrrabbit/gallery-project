@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 </head>
 
-<body>
+<body class="loading">
     <!-- Header -->
     <header>
-        <h1>Objets Trouvés</h1>
-        <p>Une collection d'objets vintage et mystérieux des décennies passées</p>
+        <h1></h1>
+        <p></p>
+        <div id="city-menu" class="city-menu"></div>
         <button id="view-toggle" class="view-toggle" aria-label="Toggle View">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -41,6 +42,8 @@
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <button class="modal-close" id="modal-close">&times;</button>
+            <button class="modal-nav prev" id="modal-prev" aria-label="Previous image">&lt;</button>
+            <button class="modal-nav next" id="modal-next" aria-label="Next image">&gt;</button>
             <div class="modal-inner">
                 <div class="modal-image">
                     <img id="modal-img" src="" alt="">

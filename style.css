@@ -16,8 +16,16 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     min-height: 100vh;
-    padding: 2rem 1rem;
+    padding: 0;
+    margin: 0;
     color: var(--text-color);
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+body.loading {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ===== Header ===== */
@@ -269,6 +277,57 @@ header p {
     transform: rotate(90deg);
 }
 
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    /* Hidden by default for subtle effect */
+}
+
+.modal-content:hover .modal-nav {
+    opacity: 1;
+    /* Show on hover */
+}
+
+.modal-nav:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-nav.prev {
+    left: 1rem;
+}
+
+.modal-nav.next {
+    right: 1rem;
+    left: auto;
+    /* Ensure it doesn't conflict */
+}
+
+/* Ensure buttons are always visible on touch devices where hover isn't reliable */
+@media (hover: none) {
+    .modal-nav {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.8);
+    }
+}
+
 .modal-inner {
     display: flex;
     height: 100%;
@@ -276,16 +335,21 @@ header p {
 
 .modal-image {
     flex: 0 0 75%;
-    background: #000;
+    /* background: #000; Removed to prevent black borders */
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
+    /* Add some padding so image doesn't touch edge */
 }
 
 .modal-image img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    border-radius: 4px;
+    /* Slight roundness */
 }
 
 .modal-info {
@@ -308,6 +372,17 @@ header p {
     color: var(--primary-color);
     margin-bottom: 2rem;
     font-weight: 600;
+}
+
+.modal-exif {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2rem;
+    font-family: monospace;
+    background: #f5f5f5;
+    padding: 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
 }
 
 .modal-description {
@@ -444,6 +519,61 @@ header p {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.city-menu {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    /* "Centered if fits, Scrollable if overflow" logic */
+    width: fit-content;
+    max-width: 100vw;
+    /* Use full viewport width */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.5rem 1rem;
+
+    /* Hide scrollbars */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    /* Smooth scrolling on touch */
+    -webkit-overflow-scrolling: touch;
+
+    /* Fade mask at edges */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.city-menu::-webkit-scrollbar {
+    display: none;
+}
+
+.city-pill {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.city-pill:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Hide in split view if desired, or keep it? For now, keep it as it's useful. */
+body.view-split .city-menu {
+    display: none;
+}
+
 .view-toggle:hover {
     background: rgba(255, 255, 255, 0.35);
     transform: translateY(-50%) scale(1.05);
@@ -475,12 +605,13 @@ body.view-split .map-tile {
     /* Slightly shorter to avoid scroll issues */
     aspect-ratio: auto;
     position: sticky;
-    top: 8rem;
-    /* Stick below the header (header ~7rem + padding) */
+    top: 7rem;
+    /* Stick below the header (matches city-banner) */
     align-self: start;
     /* Ensure it sticks to top */
     z-index: 40;
-    margin-top: 0;
+    margin-top: 2rem;
+    /* Match city-banner margin-top */
 }
 
 body.view-split .card {

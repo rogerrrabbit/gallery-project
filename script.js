@@ -2,7 +2,9 @@ let galleryData = [];
 let filteredData = [];
 let map = null;
 let imageObserver = null;
+let currentImageIndex = -1; // Track current image index for navigation
 let imageMarkers = []; // Store image marker instances
+let clusterMarkers = []; // Store cluster marker label instances
 let bannersEnabled = true; // Default to true
 let mapEnabled = true; // Default to true
 
@@ -43,8 +45,14 @@ async function loadGalleryData() {
             if (mapContainer) mapContainer.style.display = 'none';
             renderGallery();
         }
+
+        // Reveal the UI once everything is ready
+        document.body.classList.remove('loading');
+
     } catch (error) {
         console.error('Error loading gallery data:', error);
+        // Even on error, show what we have (or empty state) so user isn't stuck on blank screen
+        document.body.classList.remove('loading');
     }
 }
 
@@ -150,7 +158,10 @@ function renderGallery() {
             imageObserver.observe(img);
         }
     });
+
+    renderCityMenu(filteredData);
 }
+
 
 // Convert gallery data to GeoJSON for clustering
 function toGeoJSON(items) {
@@ -175,116 +186,55 @@ function toGeoJSON(items) {
     };
 }
 
-// Generate curved travel lines between origin cities ordered by date
-function generateTravelLines(items) {
-    // Group items by origin city
-    const citiesMap = new Map();
+// Render city navigation menu
+function renderCityMenu(items) {
+    const cityMenu = document.getElementById('city-menu');
+    if (!cityMenu) return;
+
+    cityMenu.innerHTML = '';
+
+    // Extract unique origins in order
+    const cities = [];
+    const seen = new Set();
+
     items.forEach(item => {
-        if (!item.coordinates || !item.origin) return;
-
-        if (!citiesMap.has(item.origin)) {
-            citiesMap.set(item.origin, {
-                origin: item.origin,
-                dates: [],
-                coords: []
-            });
+        if (item.origin && !seen.has(item.origin)) {
+            cities.push(item.origin);
+            seen.add(item.origin);
         }
-
-        const city = citiesMap.get(item.origin);
-        city.dates.push(item.date || '9999-99-99'); // Default to end if no date
-        city.coords.push([item.coordinates.lng, item.coordinates.lat]);
     });
 
-    // Calculate center point and earliest date for each city
-    const cities = Array.from(citiesMap.values()).map(city => {
-        // Calculate centroid of all photos in this city
-        const avgLng = city.coords.reduce((sum, c) => sum + c[0], 0) / city.coords.length;
-        const avgLat = city.coords.reduce((sum, c) => sum + c[1], 0) / city.coords.length;
+    if (cities.length === 0) return;
 
-        // Get earliest date
-        const earliestDate = city.dates.sort()[0];
+    cities.forEach(city => {
+        const pill = document.createElement('button');
+        pill.className = 'city-pill';
+        pill.textContent = city;
 
-        return {
-            origin: city.origin,
-            center: [avgLng, avgLat],
-            earliestDate
-        };
-    });
+        pill.addEventListener('click', () => {
+            // Find the banner for this city
+            // Banners don't have IDs, but we can search for the text content in city-banner elements
+            const banners = document.querySelectorAll('.city-banner');
+            for (const banner of banners) {
+                if (banner.textContent.trim() === city) {
+                    // Scroll to it with offset for sticky header
+                    const headerOffset = 180; // approximate header height
+                    const elementPosition = banner.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-    // Sort cities by earliest date
-    cities.sort((a, b) => a.earliestDate.localeCompare(b.earliestDate));
-
-    // Generate curved lines between consecutive cities
-    const features = [];
-    for (let i = 0; i < cities.length - 1; i++) {
-        const from = cities[i].center;
-        const to = cities[i + 1].center;
-
-        // Create bezier curve points
-        const curvePoints = generateBezierCurve(from, to, 20);
-
-        features.push({
-            type: 'Feature',
-            properties: {
-                from: cities[i].origin,
-                to: cities[i + 1].origin,
-                order: i
-            },
-            geometry: {
-                type: 'LineString',
-                coordinates: curvePoints
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                    return;
+                }
             }
         });
-    }
 
-    return {
-        type: 'FeatureCollection',
-        features
-    };
+        cityMenu.appendChild(pill);
+    });
 }
 
-// Generate bezier curve points between two coordinates
-function generateBezierCurve(from, to, numPoints) {
-    const points = [];
-
-    // Calculate midpoint
-    const midX = (from[0] + to[0]) / 2;
-    const midY = (from[1] + to[1]) / 2;
-
-    // Calculate perpendicular offset for the curve
-    // The curve bows outward perpendicular to the line
-    const dx = to[0] - from[0];
-    const dy = to[1] - from[1];
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    // Curve amount proportional to distance (more curve for longer lines)
-    const curveAmount = distance * 0.15;
-
-    // Perpendicular direction (rotate 90 degrees)
-    const perpX = -dy / distance * curveAmount;
-    const perpY = dx / distance * curveAmount;
-
-    // Control point (offset from midpoint)
-    const controlX = midX + perpX;
-    const controlY = midY + perpY;
-
-    // Generate quadratic bezier curve points
-    for (let i = 0; i <= numPoints; i++) {
-        const t = i / numPoints;
-
-        // Quadratic bezier formula: B(t) = (1-t)²P0 + 2(1-t)tP1 + t²P2
-        const x = Math.pow(1 - t, 2) * from[0] +
-            2 * (1 - t) * t * controlX +
-            Math.pow(t, 2) * to[0];
-        const y = Math.pow(1 - t, 2) * from[1] +
-            2 * (1 - t) * t * controlY +
-            Math.pow(t, 2) * to[1];
-
-        points.push([x, y]);
-    }
-
-    return points;
-}
 
 // Initialize MapLibre GL map with clustering
 function initMap() {
@@ -336,58 +286,6 @@ function initMap() {
     const bannerColor = styles.getPropertyValue('--banner-text-color').trim() || '#4c51bf';
 
     map.on('load', () => {
-        // Add travel lines source (curves between cities)
-        map.addSource('travel-lines', {
-            type: 'geojson',
-            data: generateTravelLines(galleryData)
-        });
-
-        // Add animated chunky dotted travel lines
-        map.addLayer({
-            id: 'travel-lines-core',
-            type: 'line',
-            source: 'travel-lines',
-            layout: {
-                'line-cap': 'round',
-                'line-join': 'round'
-            },
-            paint: {
-                'line-color': primaryColor,
-                'line-width': 6,
-                // Initial dash array
-                'line-dasharray': [0, 2]
-            }
-        });
-
-        // Animation for the marching ants effect (moving dots)
-        function animateDashArray() {
-            // Optimize animation to avoid "LineAtlas out of space" error
-            // use discrete steps instead of continuous values to limit texture usage.
-            // 25 steps provides smooth enough animation without filling the atlas.
-            const totalSteps = 25;
-
-            // Speed control: 50ms per step = 1250ms per cycle
-            const step = Math.floor((performance.now() / 50) % totalSteps);
-
-            // Calculate phase p (0 to 2)
-            const p = (step / totalSteps) * 2;
-
-            // Forward movement: [0, p, 0, 2 - p]
-            // We use a fixed precision to ensure cache hits in LineAtlas
-            const pFixed = parseFloat(p.toFixed(2));
-            const pRevFixed = parseFloat((2 - p).toFixed(2));
-
-            const dashArray = [0, pFixed, 0, pRevFixed];
-
-            if (map.getLayer('travel-lines-core')) {
-                map.setPaintProperty('travel-lines-core', 'line-dasharray', dashArray);
-            }
-
-            requestAnimationFrame(animateDashArray);
-        }
-
-        // Start animation
-        animateDashArray();
 
         // Add clustered GeoJSON source
         map.addSource('photos', {
@@ -427,42 +325,6 @@ function initMap() {
         // Note: Symbol layers with text require glyph fonts from the style.
         // Since we use OSM raster tiles (no glyphs), we add count labels via HTML on cluster circles.
 
-        // Add cluster count labels using HTML markers
-        let clusterMarkers = [];
-
-        function updateClusterLabels() {
-            // Remove existing cluster markers
-            clusterMarkers.forEach(m => m.remove());
-            clusterMarkers = [];
-
-            // Get all cluster features currently rendered
-            const clusters = map.querySourceFeatures('photos', {
-                filter: ['has', 'point_count']
-            });
-
-            // Deduplicate by cluster_id
-            const seen = new Set();
-            clusters.forEach(cluster => {
-                const id = cluster.properties.cluster_id;
-                if (seen.has(id)) return;
-                seen.add(id);
-
-                const count = cluster.properties.point_count;
-                const coords = cluster.geometry.coordinates;
-
-                // Create label element
-                const el = document.createElement('div');
-                el.className = 'cluster-count';
-                el.textContent = count;
-
-                const marker = new maplibregl.Marker({ element: el })
-                    .setLngLat(coords)
-                    .addTo(map);
-
-                clusterMarkers.push(marker);
-            });
-        }
-
         // Individual photo markers - hidden layer for source data only
         // Actual image markers are created via HTML elements
         map.addLayer({
@@ -477,93 +339,16 @@ function initMap() {
             }
         });
 
-        // Function to update image markers based on current clusters
-        function updateImageMarkers() {
-            // Remove existing image markers
-            imageMarkers.forEach(marker => marker.remove());
-            imageMarkers = [];
-
-            // Get all unclustered features currently visible
-            const features = map.querySourceFeatures('photos', {
-                filter: ['!', ['has', 'point_count']]
-            });
-
-            // Create image markers for each unclustered point
-            const addedIds = new Set();
-            features.forEach(feature => {
-                const id = feature.properties.id;
-                if (addedIds.has(id)) return; // Avoid duplicates
-                addedIds.add(id);
-
-                const coords = feature.geometry.coordinates;
-                const item = galleryData.find(i => i.id === id);
-                if (!item) return;
-
-                // Create marker element with thumbnail image
-                const el = document.createElement('img');
-                el.className = 'map-marker';
-                el.src = getThumbnailPath(item.image);
-                el.alt = item.title || '';
-                el.title = item.origin || '';
-
-                // Add click handler to open modal
-                el.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openModal(item);
-                });
-
-                // Add marker to map
-                const marker = new maplibregl.Marker({ element: el })
-                    .setLngLat(coords)
-                    .addTo(map);
-
-                imageMarkers.push(marker);
-            });
-        }
-
-        // Update markers on map render (zoom, pan, data changes)
-        map.on('render', () => {
+        // Update markers and lines when map movement ends
+        map.on('moveend', () => {
             if (map.isSourceLoaded('photos')) {
-                updateImageMarkers();
-                updateClusterLabels();
+                updateGalleryFromMap();
             }
         });
 
-
-
-        // Click on cluster to zoom and fit all elements inside
-        map.on('click', 'clusters', (e) => {
-            const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
-            if (!features.length) return;
-
-            const clusterId = features[0].properties.cluster_id;
-            const pointCount = features[0].properties.point_count;
-
-            // Get source
-            const source = map.getSource('photos');
-            if (!source) return;
-
-            // Get all leaves (points) in this cluster
-            source.getClusterLeaves(clusterId, pointCount, 0, (err, leaves) => {
-                if (err) {
-                    console.error('Error getting cluster leaves:', err);
-                    return;
-                }
-                console.log('Cluster leaves:', leaves); // Debugging
-                if (!leaves || leaves.length === 0) return;
-
-                // Calculate bounds to fit all points in the cluster
-                const bounds = new maplibregl.LngLatBounds();
-                leaves.forEach(leaf => {
-                    bounds.extend(leaf.geometry.coordinates);
-                });
-
-                map.fitBounds(bounds, {
-                    padding: { top: 150, bottom: 50, left: 50, right: 50 },
-                    maxZoom: 18,
-                    speed: 1.2
-                });
-            });
+        // Also update once on load/idle to ensure markers appear
+        map.once('idle', () => {
+            updateGalleryFromMap();
         });
 
         // Click on individual marker (fallback for transparent circle)
@@ -613,11 +398,108 @@ function updateGalleryFromMap() {
     });
 
     renderGallery();
+
+    // Update map elements logic based on visible data
+    if (map && map.isSourceLoaded('photos')) {
+        updateClusterLabels();
+        updateImageMarkers();
+    }
+}
+
+function updateClusterLabels() {
+    if (!map) return;
+
+    // Remove existing cluster markers
+    clusterMarkers.forEach(m => m.remove());
+    clusterMarkers = [];
+
+    // Get all cluster features currently rendered
+    const clusters = map.querySourceFeatures('photos', {
+        filter: ['has', 'point_count']
+    });
+
+    // Deduplicate by cluster_id
+    const seen = new Set();
+    clusters.forEach(cluster => {
+        const id = cluster.properties.cluster_id;
+        if (seen.has(id)) return;
+        seen.add(id);
+
+        const count = cluster.properties.point_count;
+        const coords = cluster.geometry.coordinates;
+
+        // Create label element
+        const el = document.createElement('div');
+        el.className = 'cluster-count';
+        el.textContent = count;
+
+        const marker = new maplibregl.Marker({ element: el })
+            .setLngLat(coords)
+            .addTo(map);
+
+        clusterMarkers.push(marker);
+    });
+}
+
+function updateImageMarkers() {
+    if (!map) return;
+
+    // Remove existing image markers
+    imageMarkers.forEach(marker => marker.remove());
+    imageMarkers = [];
+
+    // Get all unclustered features currently visible
+    const features = map.querySourceFeatures('photos', {
+        filter: ['!', ['has', 'point_count']]
+    });
+
+    // Create image markers for each unclustered point
+    const addedIds = new Set();
+    features.forEach(feature => {
+        const id = feature.properties.id;
+        if (addedIds.has(id)) return; // Avoid duplicates
+        addedIds.add(id);
+
+        const coords = feature.geometry.coordinates;
+        const item = galleryData.find(i => i.id === id);
+        if (!item) return;
+
+        // Create marker element with thumbnail image
+        const el = document.createElement('img');
+        el.className = 'map-marker';
+        el.src = getThumbnailPath(item.image);
+        el.alt = item.title || '';
+        el.title = item.origin || '';
+
+        // Add click handler to open modal
+        el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openModal(item);
+        });
+
+        // Add marker to map
+        const marker = new maplibregl.Marker({ element: el })
+            .setLngLat(coords)
+            .addTo(map);
+
+        imageMarkers.push(marker);
+    });
 }
 
 // Open modal
 function openModal(item) {
+    // Update current index
+    currentImageIndex = filteredData.findIndex(i => i.id === item.id);
+    updateModalContent(item);
+
     const modal = document.getElementById('modal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function updateModalContent(item) {
+    if (!item) return;
+
     const modalImg = document.getElementById('modal-img');
     const modalTitle = document.getElementById('modal-title');
     const modalMeta = document.getElementById('modal-meta');
@@ -636,12 +518,71 @@ function openModal(item) {
     modalMeta.textContent = metaText;
     modalMeta.style.display = metaText ? '' : 'none';
 
+    // Handle EXIF
+    let exifContainer = document.getElementById('modal-exif-info');
+    if (!exifContainer) {
+        exifContainer = document.createElement('div');
+        exifContainer.id = 'modal-exif-info';
+        exifContainer.className = 'modal-exif';
+        modalMeta.parentNode.insertBefore(exifContainer, modalMeta.nextSibling);
+    }
+
+    if (item.exif) {
+        const exif = item.exif;
+        const exDetails = [];
+        if (exif.model) exDetails.push(exif.model);
+        if (exif.focal) exDetails.push(exif.focal);
+        if (exif.aperture) exDetails.push(exif.aperture);
+
+        if (exif.shutter) {
+            let shutter = exif.shutter;
+            try {
+                const match = shutter.match(/^(\d+)\/(\d+)s$/);
+                if (match) {
+                    const num = parseInt(match[1]);
+                    const den = parseInt(match[2]);
+                    if (num > 0 && den > 0) {
+                        if (num >= den) {
+                            shutter = parseFloat((num / den).toFixed(1)) + "s";
+                        } else {
+                            shutter = "1/" + Math.round(den / num) + "s";
+                        }
+                    }
+                }
+            } catch (e) { }
+            exDetails.push(shutter);
+        }
+
+        if (exif.iso) exDetails.push(exif.iso);
+
+        exifContainer.textContent = exDetails.join(' • ');
+        exifContainer.style.display = 'block';
+    } else {
+        exifContainer.style.display = 'none';
+    }
+
     // Handle optional description
     modalDescription.textContent = item.fullDescription || '';
     modalDescription.style.display = item.fullDescription ? '' : 'none';
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+function navigateModal(direction) {
+    if (currentImageIndex === -1 || !filteredData.length) return;
+
+    let newIndex = currentImageIndex + direction;
+
+    // Loop around
+    if (newIndex < 0) {
+        newIndex = filteredData.length - 1;
+    } else if (newIndex >= filteredData.length) {
+        newIndex = 0;
+    }
+
+    currentImageIndex = newIndex;
+    updateModalContent(filteredData[currentImageIndex]);
 }
 
 // Close modal
@@ -710,6 +651,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeModal();
+        } else if (e.key === 'ArrowLeft') {
+            navigateModal(-1);
+        } else if (e.key === 'ArrowRight') {
+            navigateModal(1);
         }
+    });
+
+    // Modal Navigation Buttons
+    document.getElementById('modal-prev').addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent closing modal if overlay clicked
+        navigateModal(-1);
+    });
+
+    document.getElementById('modal-next').addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateModal(1);
     });
 });
