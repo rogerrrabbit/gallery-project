@@ -249,28 +249,28 @@ function initMap() {
 
     mapContainer.style.display = 'block';
 
-    // Initialize the map with Carto Dark Matter tiles
+    // Initialize the map with OpenStreetMap tiles (free and no API key required)
     map = new maplibregl.Map({
         container: 'map',
         style: {
             version: 8,
             sources: {
-                'stamen-toner-lite': {
+                'osm': {
                     type: 'raster',
                     tiles: [
-                        'https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}@2x.png'
+                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
                     ],
                     tileSize: 256,
-                    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.stamen.com/">Stamen Design</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }
             },
             layers: [
                 {
-                    id: 'stamen-toner-lite-tiles',
+                    id: 'osm-tiles',
                     type: 'raster',
-                    source: 'stamen-toner-lite',
+                    source: 'osm',
                     minzoom: 0,
-                    maxzoom: 20
+                    maxzoom: 19
                 }
             ]
         },
@@ -377,7 +377,7 @@ function initMap() {
             bounds.extend([item.coordinates.lng, item.coordinates.lat]);
         });
         map.fitBounds(bounds, {
-            padding: 50,
+            padding: { top: 120, bottom: 50, left: 50, right: 50 }, // More top padding for sticky header
             maxZoom: 10
         });
     });
@@ -625,10 +625,23 @@ document.addEventListener('DOMContentLoaded', () => {
             viewToggle.innerHTML = isSplit ? gridIcon : splitIcon;
             viewToggle.setAttribute('aria-label', isSplit ? 'Switch to Grid View' : 'Switch to Split View');
 
-            // Resize map after transition to ensure it fills the new container size
+            // Resize map after transition
             setTimeout(() => {
-                if (map) map.resize();
-            }, 350); // Slightly longer than transition
+                if (map) {
+                    map.resize();
+                    // Re-fit bounds to ensure all visible markers are seen in the new layout
+                    const bounds = new maplibregl.LngLatBounds();
+                    const visibleItems = filteredData.filter(i => i.coordinates);
+                    if (visibleItems.length > 0) {
+                        visibleItems.forEach(item => bounds.extend([item.coordinates.lng, item.coordinates.lat]));
+                        map.fitBounds(bounds, {
+                            padding: { top: 120, bottom: 50, left: 50, right: 50 },
+                            maxZoom: 10,
+                            linear: true
+                        });
+                    }
+                }
+            }, 400);
         });
     }
 

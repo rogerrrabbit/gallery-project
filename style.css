@@ -32,16 +32,16 @@ body.loading {
 header {
     text-align: center;
     color: white;
-    /* margin-bottom: 3rem; Removed, handled by sticky spacing */
     position: sticky;
     top: 0;
-    z-index: 100;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-    margin: 0 -1rem 2rem -1rem;
-    /* Negative margin to span full width */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 1.5rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 header h1 {
@@ -60,12 +60,11 @@ header p {
 
 /* ===== Gallery Grid ===== */
 .gallery {
-    /* max-width: 1200px;  Removed to allow full expansion */
-    margin: 0 auto;
+    margin: 2rem auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
 }
 
 /* ===== Card Container (for flip effect) ===== */
@@ -499,24 +498,24 @@ header p {
 
 /* ===== View Toggle & Scroll Buttons ===== */
 .view-toggle {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    top: 1.5rem;
     right: 2rem;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: white;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     padding: 0;
-    border-radius: 12px;
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(4px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1100;
 }
 
 .city-menu {
@@ -575,14 +574,12 @@ body.view-split .city-menu {
 }
 
 .view-toggle:hover {
-    background: rgba(255, 255, 255, 0.35);
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
 }
 
 .scroll-top {
-    right: 6rem;
-    /* Position to the left of view toggle */
+    right: 5.5rem;
 }
 
 /* ===== Split View Mode ===== */
