@@ -11,6 +11,17 @@
             "url": "http://localhost:5500",
             "webRoot": "${workspaceFolder}",
             "preLaunchTask": "Start Local Server"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch on Public URL (Codespaces)",
+            "url": "http://localhost:5500",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start Local Server - Public",
+            "presentation": {
+                "order": 1
+            }
         }
     ]
 }

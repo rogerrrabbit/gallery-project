@@ -47,23 +47,25 @@
             "id": "3",
             "image": "Japon2025_dist/PXL_20251029_032711143~2.jpg",
             "date": "2025-10-29",
+            "time": "04:27",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.720086,
-                "lng": 139.763294
+                "lat": 35.720104,
+                "lng": 139.7637
             },
-            "origin": "Bunkyō, Japan",
-            "time": "04:27"
+            "origin": "Bunkyō, Japan"
         },
         {
             "id": "4",
             "image": "Japon2025_dist/PXL_20251029_062601909~2.jpg",
             "date": "2025-10-29",
+            "time": "07:26",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.720086,
-                "lng": 139.763294
+                "lat": 35.719994,
+                "lng": 139.763341
             },
-            "origin": "Bunkyō, Japan",
-            "time": "07:26"
+            "origin": "Bunkyō, Japan"
         },
         {
             "id": "5",
@@ -303,11 +305,6 @@
             "id": "13",
             "image": "Japon2025_dist/PA300400.jpg",
             "date": "2025-10-30",
-            "coordinates": {
-                "lat": 35.72039,
-                "lng": 139.763615
-            },
-            "origin": "Bunkyō, Japan",
             "time": "10:16",
             "exif": {
                 "model": "E-M10MarkII",
@@ -315,28 +312,30 @@
                 "aperture": "f/0.0",
                 "shutter": "1/160s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.724904,
+                "lng": 139.767102
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "24",
             "image": "Japon2025_dist/PXL_20251030_011836594~2.jpg",
             "date": "2025-10-30",
+            "time": "10:18",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.724027,
-                "lng": 139.766306
+                "lat": 35.724744,
+                "lng": 139.766286
             },
-            "origin": "Taito, Japan",
-            "time": "10:18"
+            "origin": "Taito, Japan"
         },
         {
             "id": "14",
             "image": "Japon2025_dist/PA300403.jpg",
             "date": "2025-10-30",
-            "coordinates": {
-                "lat": 35.720661,
-                "lng": 139.764381
-            },
-            "origin": "Bunkyō, Japan",
             "time": "10:31",
             "exif": {
                 "model": "E-M10MarkII",
@@ -344,18 +343,25 @@
                 "aperture": "f/0.0",
                 "shutter": "1/800s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.724662,
+                "lng": 139.766911
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "25",
             "image": "Japon2025_dist/PXL_20251030_013827451~2.jpg",
             "date": "2025-10-30",
+            "time": "10:38",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.72519,
-                "lng": 139.767381
+                "lat": 35.725505,
+                "lng": 139.766973
             },
-            "origin": "Taito, Japan",
-            "time": "10:38"
+            "origin": "Taito, Japan"
         },
         {
             "id": "26",
@@ -379,11 +385,6 @@
             "id": "15",
             "image": "Japon2025_dist/PA300404.jpg",
             "date": "2025-10-30",
-            "coordinates": {
-                "lat": 35.720673,
-                "lng": 139.764492
-            },
-            "origin": "Bunkyō, Japan",
             "time": "10:49",
             "exif": {
                 "model": "E-M10MarkII",
@@ -391,7 +392,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1600s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.725442,
+                "lng": 139.767027
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "27",
@@ -433,11 +440,6 @@
             "id": "16",
             "image": "Japon2025_dist/PA300405.jpg",
             "date": "2025-10-30",
-            "coordinates": {
-                "lat": 35.720354,
-                "lng": 139.764477
-            },
-            "origin": "Bunkyō, Japan",
             "time": "10:58",
             "exif": {
                 "model": "E-M10MarkII",
@@ -445,7 +447,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/2000s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.725621,
+                "lng": 139.767909
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "29",
@@ -559,11 +567,6 @@
             "id": "17",
             "image": "Japon2025_dist/PA300406.jpg",
             "date": "2025-10-30",
-            "coordinates": {
-                "lat": 35.721125,
-                "lng": 139.76402
-            },
-            "origin": "Bunkyō, Japan",
             "time": "11:45",
             "exif": {
                 "model": "E-M10MarkII",
@@ -571,7 +574,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/5000s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.727314,
+                "lng": 139.767802
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "35",
@@ -721,11 +730,6 @@
             "id": "18",
             "image": "Japon2025_dist/PA300408.jpg",
             "date": "2025-10-30",
-            "coordinates": {
-                "lat": 35.721005,
-                "lng": 139.764144
-            },
-            "origin": "Bunkyō, Japan",
             "time": "13:42",
             "exif": {
                 "model": "E-M10MarkII",
@@ -733,7 +737,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/500s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.724618,
+                "lng": 139.760193
+            },
+            "origin": "Bunkyō, Japan"
         },
         {
             "id": "43",
@@ -1297,22 +1307,18 @@
             "id": "84",
             "image": "Japon2025_dist/PXL_20251031_021127587~2.jpg",
             "date": "2025-10-31",
+            "time": "11:11",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.716098,
-                "lng": 139.773302
+                "lat": 35.715419,
+                "lng": 139.772385
             },
-            "origin": "Taito, Japan",
-            "time": "11:11"
+            "origin": "Taito, Japan"
         },
         {
             "id": "72",
             "image": "Japon2025_dist/PA310410.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.705998,
-                "lng": 139.730099
-            },
-            "origin": "Shinjuku, Japan",
             "time": "11:12",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1320,17 +1326,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/400s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.714882,
+                "lng": 139.772906
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "73",
             "image": "Japon2025_dist/PA310412.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.706079,
-                "lng": 139.730301
-            },
-            "origin": "Shinjuku, Japan",
             "time": "11:12",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1338,7 +1345,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/320s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.714911,
+                "lng": 139.77262
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "85",
@@ -1362,11 +1375,6 @@
             "id": "74",
             "image": "Japon2025_dist/PA310413.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.705899,
-                "lng": 139.730312
-            },
-            "origin": "Shinjuku, Japan",
             "time": "11:15",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1374,18 +1382,25 @@
                 "aperture": "f/0.0",
                 "shutter": "1/800s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.714909,
+                "lng": 139.772329
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "86",
             "image": "Japon2025_dist/PXL_20251031_022151816~2.jpg",
             "date": "2025-10-31",
+            "time": "11:21",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.714302,
-                "lng": 139.77373
+                "lat": 35.714434,
+                "lng": 139.772388
             },
-            "origin": "Taito, Japan",
-            "time": "11:21"
+            "origin": "Taito, Japan"
         },
         {
             "id": "87",
@@ -1481,11 +1496,6 @@
             "id": "75",
             "image": "Japon2025_dist/PA310418.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.706791,
-                "lng": 139.732201
-            },
-            "origin": "Shinjuku, Japan",
             "time": "11:32",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1493,7 +1503,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/800s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.712376,
+                "lng": 139.771675
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "92",
@@ -1553,11 +1569,6 @@
             "id": "76",
             "image": "Japon2025_dist/PA310423.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.708257,
-                "lng": 139.735865
-            },
-            "origin": "Bunkyō, Japan",
             "time": "12:14",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1565,7 +1576,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/320s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.710924,
+                "lng": 139.774328
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "95",
@@ -1625,22 +1642,18 @@
             "id": "98",
             "image": "Japon2025_dist/PXL_20251031_032053196~2.jpg",
             "date": "2025-10-31",
+            "time": "12:20",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.70997,
-                "lng": 139.775125
+                "lat": 35.710096,
+                "lng": 139.774674
             },
-            "origin": "Taito, Japan",
-            "time": "12:20"
+            "origin": "Taito, Japan"
         },
         {
             "id": "77",
             "image": "Japon2025_dist/PA310427.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.708179,
-                "lng": 139.737219
-            },
-            "origin": "Bunkyō, Japan",
             "time": "12:23",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1648,17 +1661,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/320s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.709848,
+                "lng": 139.775255
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "78",
             "image": "Japon2025_dist/PA310430.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.70833,
-                "lng": 139.736706
-            },
-            "origin": "Bunkyō, Japan",
             "time": "12:25",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1666,17 +1680,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.71042,
+                "lng": 139.775966
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "79",
             "image": "Japon2025_dist/PA310432.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.708776,
-                "lng": 139.736778
-            },
-            "origin": "Bunkyō, Japan",
             "time": "12:27",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1684,17 +1699,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/125s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.710292,
+                "lng": 139.77622
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "80",
             "image": "Japon2025_dist/PA310434.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.710282,
-                "lng": 139.739746
-            },
-            "origin": "Bunkyō, Japan",
             "time": "12:58",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1702,7 +1718,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/400s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.711497,
+                "lng": 139.78255
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "99",
@@ -1726,11 +1748,6 @@
             "id": "81",
             "image": "Japon2025_dist/PA310439.jpg",
             "date": "2025-10-31",
-            "coordinates": {
-                "lat": 35.710169,
-                "lng": 139.740125
-            },
-            "origin": "Bunkyō, Japan",
             "time": "13:02",
             "exif": {
                 "model": "E-M10MarkII",
@@ -1738,7 +1755,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/400s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.711256,
+                "lng": 139.783706
+            },
+            "origin": "Taito, Japan"
         },
         {
             "id": "100",
@@ -1888,12 +1911,13 @@
             "id": "108",
             "image": "Japon2025_dist/PXL_20251031_060354683~2.jpg",
             "date": "2025-10-31",
+            "time": "15:03",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.713094,
-                "lng": 139.796603
+                "lat": 35.71263,
+                "lng": 139.79653
             },
-            "origin": "Taito, Japan",
-            "time": "15:03"
+            "origin": "Taito, Japan"
         },
         {
             "id": "109",
@@ -1971,12 +1995,13 @@
             "id": "113",
             "image": "Japon2025_dist/PXL_20251031_061709606~2.jpg",
             "date": "2025-10-31",
+            "time": "15:17",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.714311,
-                "lng": 139.797082
+                "lat": 35.713547,
+                "lng": 139.796388
             },
-            "origin": "Taito, Japan",
-            "time": "15:17"
+            "origin": "Taito, Japan"
         },
         {
             "id": "114",
@@ -2108,12 +2133,13 @@
             "id": "121",
             "image": "Japon2025_dist/d72f18c1-d06a-419d-8b14-32c1bfad9d76-copied-media~3.jpg",
             "date": "2025-10-31",
+            "time": "19:56",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.670023,
-                "lng": 139.706276
+                "lat": 35.669424,
+                "lng": 139.705705
             },
-            "origin": "Shibuya, Japan",
-            "time": "19:56"
+            "origin": "Shibuya, Japan"
         },
         {
             "id": "131",
@@ -2245,11 +2271,6 @@
             "id": "122",
             "image": "Japon2025_dist/PB010443.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.704103,
-                "lng": 139.745863
-            },
-            "origin": "Bunkyō, Japan",
             "time": "11:40",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2257,17 +2278,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/60s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.656924,
+                "lng": 139.466485
+            },
+            "origin": "Fuchu, Japan"
         },
         {
             "id": "123",
             "image": "Japon2025_dist/PB010444.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.704176,
-                "lng": 139.745209
-            },
-            "origin": "Bunkyō, Japan",
             "time": "11:41",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2275,17 +2297,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/25s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.656446,
+                "lng": 139.464113
+            },
+            "origin": "Fuchu, Japan"
         },
         {
             "id": "124",
             "image": "Japon2025_dist/PB010445.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.703734,
-                "lng": 139.745966
-            },
-            "origin": "Bunkyō, Japan",
             "time": "11:41",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2293,7 +2316,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/20s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.656404,
+                "lng": 139.464289
+            },
+            "origin": "Fuchu, Japan"
         },
         {
             "id": "138",
@@ -2353,22 +2382,18 @@
             "id": "141",
             "image": "Japon2025_dist/PXL_20251101_035404989~2.jpg",
             "date": "2025-11-01",
+            "time": "12:54",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.630873,
-                "lng": 139.283592
+                "lat": 35.630667,
+                "lng": 139.282837
             },
-            "origin": "Hachioji, Japan",
-            "time": "12:54"
+            "origin": "Hachioji, Japan"
         },
         {
             "id": "125",
             "image": "Japon2025_dist/PB010455.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.70963,
-                "lng": 139.751712
-            },
-            "origin": "Bunkyō, Japan",
             "time": "12:55",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2376,17 +2401,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/640s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.630478,
+                "lng": 139.28042
+            },
+            "origin": "Hachioji, Japan"
         },
         {
             "id": "126",
             "image": "Japon2025_dist/PB010463.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.709922,
-                "lng": 139.752399
-            },
-            "origin": "Bunkyō, Japan",
             "time": "12:59",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2394,7 +2420,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/320s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.628526,
+                "lng": 139.269254
+            },
+            "origin": "Hachioji, Japan"
         },
         {
             "id": "142",
@@ -2508,11 +2540,6 @@
             "id": "127",
             "image": "Japon2025_dist/PB010488.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.71656,
-                "lng": 139.760596
-            },
-            "origin": "Bunkyō, Japan",
             "time": "14:35",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2520,17 +2547,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.625868,
+                "lng": 139.24959
+            },
+            "origin": "Hachioji, Japan"
         },
         {
             "id": "128",
             "image": "Japon2025_dist/PB010490.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.716934,
-                "lng": 139.760622
-            },
-            "origin": "Bunkyō, Japan",
             "time": "14:35",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2538,7 +2566,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/125s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.626094,
+                "lng": 139.249174
+            },
+            "origin": "Hachioji, Japan"
         },
         {
             "id": "148",
@@ -2598,11 +2632,6 @@
             "id": "129",
             "image": "Japon2025_dist/PB010492.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.716919,
-                "lng": 139.760465
-            },
-            "origin": "Bunkyō, Japan",
             "time": "14:38",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2610,7 +2639,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/100s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.625845,
+                "lng": 139.249456
+            },
+            "origin": "Hachioji, Japan"
         },
         {
             "id": "151",
@@ -2778,11 +2813,6 @@
             "id": "130",
             "image": "Japon2025_dist/PB010497.jpg",
             "date": "2025-11-01",
-            "coordinates": {
-                "lat": 35.718646,
-                "lng": 139.762526
-            },
-            "origin": "Bunkyō, Japan",
             "time": "14:58",
             "exif": {
                 "model": "E-M10MarkII",
@@ -2790,7 +2820,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/500s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.626329,
+                "lng": 139.250298
+            },
+            "origin": "Hachioji, Japan"
         },
         {
             "id": "160",
@@ -2922,12 +2958,13 @@
             "id": "167",
             "image": "Japon2025_dist/PXL_20251101_093702937~2.jpg",
             "date": "2025-11-01",
+            "time": "18:37",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.697277,
-                "lng": 139.771033
+                "lat": 35.697488,
+                "lng": 139.771069
             },
-            "origin": "Chiyoda, Japan",
-            "time": "18:37"
+            "origin": "Chiyoda, Japan"
         },
         {
             "id": "168",
@@ -3041,12 +3078,13 @@
             "id": "187",
             "image": "Japon2025_dist/PXL_20251102_000640283~2.jpg",
             "date": "2025-11-02",
+            "time": "09:06",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.473404,
-                "lng": 139.411454
+                "lat": 35.474439,
+                "lng": 139.413186
             },
-            "origin": "Zama, Japan",
-            "time": "09:06"
+            "origin": "Zama, Japan"
         },
         {
             "id": "188",
@@ -3484,11 +3522,6 @@
             "id": "172",
             "image": "Japon2025_dist/PB020503.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.68738,
-                "lng": 139.708005
-            },
-            "origin": "Shinjuku, Japan",
             "time": "14:31",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3496,17 +3529,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/500s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.245508,
+                "lng": 139.053076
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "173",
             "image": "Japon2025_dist/PB020505.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.687399,
-                "lng": 139.708664
-            },
-            "origin": "Shinjuku, Japan",
             "time": "14:32",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3514,17 +3548,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/320s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.245331,
+                "lng": 139.054373
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "174",
             "image": "Japon2025_dist/PB020508.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.687147,
-                "lng": 139.708183
-            },
-            "origin": "Shinjuku, Japan",
             "time": "14:34",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3532,7 +3567,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1600s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.245045,
+                "lng": 139.055996
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "212",
@@ -3628,11 +3669,6 @@
             "id": "175",
             "image": "Japon2025_dist/PB020510.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.687001,
-                "lng": 139.703686
-            },
-            "origin": "Shinjuku, Japan",
             "time": "15:20",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3640,17 +3676,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/25s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.234887,
+                "lng": 139.093237
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "176",
             "image": "Japon2025_dist/PB020512.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.686448,
-                "lng": 139.703791
-            },
-            "origin": "Shinjuku, Japan",
             "time": "15:21",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3658,17 +3695,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/40s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.234437,
+                "lng": 139.092534
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "177",
             "image": "Japon2025_dist/PB020513.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.68641,
-                "lng": 139.703588
-            },
-            "origin": "Shinjuku, Japan",
             "time": "15:21",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3676,17 +3714,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/40s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.234303,
+                "lng": 139.09337
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "178",
             "image": "Japon2025_dist/PB020515.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.687159,
-                "lng": 139.703793
-            },
-            "origin": "Shinjuku, Japan",
             "time": "15:22",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3694,17 +3733,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/20s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.233343,
+                "lng": 139.092168
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "179",
             "image": "Japon2025_dist/PB020518.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.686282,
-                "lng": 139.703885
-            },
-            "origin": "Shinjuku, Japan",
             "time": "15:23",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3712,7 +3752,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/640s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.233557,
+                "lng": 139.09182
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "217",
@@ -3736,11 +3782,6 @@
             "id": "180",
             "image": "Japon2025_dist/PB020522.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.686908,
-                "lng": 139.703703
-            },
-            "origin": "Shinjuku, Japan",
             "time": "15:27",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3748,7 +3789,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/50s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.23405,
+                "lng": 139.094275
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "218",
@@ -3808,11 +3855,6 @@
             "id": "181",
             "image": "Japon2025_dist/PB020523.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.68689,
-                "lng": 139.703164
-            },
-            "origin": "Shinjuku, Japan",
             "time": "15:29",
             "exif": {
                 "model": "E-M10MarkII",
@@ -3820,7 +3862,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/30s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.232533,
+                "lng": 139.094344
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "221",
@@ -4096,11 +4144,6 @@
             "id": "184",
             "image": "Japon2025_dist/PB020524.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.596903,
-                "lng": 139.579222
-            },
-            "origin": "Kawasaki, Japan",
             "time": "16:28",
             "exif": {
                 "model": "E-M10MarkII",
@@ -4108,17 +4151,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/20s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.232318,
+                "lng": 139.09392
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "185",
             "image": "Japon2025_dist/PB020526.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.596512,
-                "lng": 139.578505
-            },
-            "origin": "Kawasaki, Japan",
             "time": "16:28",
             "exif": {
                 "model": "E-M10MarkII",
@@ -4126,17 +4170,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/20s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.232807,
+                "lng": 139.093556
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "186",
             "image": "Japon2025_dist/PB020528.jpg",
             "date": "2025-11-02",
-            "coordinates": {
-                "lat": 35.595885,
-                "lng": 139.577922
-            },
-            "origin": "Kawasaki, Japan",
             "time": "16:28",
             "exif": {
                 "model": "E-M10MarkII",
@@ -4144,7 +4189,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/25s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.232607,
+                "lng": 139.094465
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "236",
@@ -4816,11 +4867,6 @@
             "id": "255",
             "image": "Japon2025_dist/PB030534.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.232612,
-                "lng": 139.094509
-            },
-            "origin": "Hakone, Japan",
             "time": "11:39",
             "exif": {
                 "model": "E-M10MarkII",
@@ -4828,7 +4874,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/800s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.202471,
+                "lng": 139.041577
+            },
+            "origin": "Hakone, Japan"
         },
         {
             "id": "276",
@@ -4852,11 +4904,6 @@
             "id": "256",
             "image": "Japon2025_dist/PB030535.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.232358,
-                "lng": 139.09359
-            },
-            "origin": "Hakone, Japan",
             "time": "14:54",
             "exif": {
                 "model": "E-M10MarkII",
@@ -4864,17 +4911,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/125s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.147177,
+                "lng": 138.932261
+            },
+            "origin": "Mishima, Japan"
         },
         {
             "id": "257",
             "image": "Japon2025_dist/PB030537.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.232658,
-                "lng": 139.094333
-            },
-            "origin": "Hakone, Japan",
             "time": "14:55",
             "exif": {
                 "model": "E-M10MarkII",
@@ -4882,7 +4930,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/80s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.146909,
+                "lng": 138.931428
+            },
+            "origin": "Mishima, Japan"
         },
         {
             "id": "283",
@@ -5086,11 +5140,6 @@
             "id": "277",
             "image": "Japon2025_dist/PB030539.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.179118,
-                "lng": 138.996664
-            },
-            "origin": "Mishima, Japan",
             "time": "21:00",
             "exif": {
                 "model": "E-M10MarkII",
@@ -5098,7 +5147,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/25s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.988093,
+                "lng": 135.762332
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "294",
@@ -5122,11 +5177,6 @@
             "id": "278",
             "image": "Japon2025_dist/PB030544.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.177936,
-                "lng": 138.993476
-            },
-            "origin": "Mishima, Japan",
             "time": "21:05",
             "exif": {
                 "model": "E-M10MarkII",
@@ -5134,7 +5184,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/15s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.988378,
+                "lng": 135.762041
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "295",
@@ -5176,11 +5232,6 @@
             "id": "279",
             "image": "Japon2025_dist/PB030557.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.166281,
-                "lng": 138.969733
-            },
-            "origin": "Mishima, Japan",
             "time": "21:47",
             "exif": {
                 "model": "E-M10MarkII",
@@ -5188,17 +5239,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/20s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.989233,
+                "lng": 135.763589
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "280",
             "image": "Japon2025_dist/PB030558.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.165917,
-                "lng": 138.968944
-            },
-            "origin": "Mishima, Japan",
             "time": "21:48",
             "exif": {
                 "model": "E-M10MarkII",
@@ -5206,17 +5258,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/20s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.98897,
+                "lng": 135.763194
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "281",
             "image": "Japon2025_dist/PB030559.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.165326,
-                "lng": 138.969212
-            },
-            "origin": "Mishima, Japan",
             "time": "21:48",
             "exif": {
                 "model": "E-M10MarkII",
@@ -5224,7 +5277,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/50s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.989469,
+                "lng": 135.763341
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "297",
@@ -5302,11 +5361,6 @@
             "id": "282",
             "image": "Japon2025_dist/PB030562.jpg",
             "date": "2025-11-03",
-            "coordinates": {
-                "lat": 35.164024,
-                "lng": 138.965894
-            },
-            "origin": "Mishima, Japan",
             "time": "21:54",
             "exif": {
                 "model": "E-M10MarkII",
@@ -5314,7 +5368,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/125s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.988484,
+                "lng": 135.762952
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "301",
@@ -5824,12 +5884,13 @@
             "id": "329",
             "image": "Japon2025_dist/PSX_20251104_180059.jpg",
             "date": "2025-11-04",
+            "time": "18:01",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.000526,
-                "lng": 135.776227
+                "lat": 35.000849,
+                "lng": 135.776007
             },
-            "origin": "Kyoto, Japan",
-            "time": "18:01"
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "330",
@@ -6033,11 +6094,6 @@
             "id": "333",
             "image": "Japon2025_dist/PB050570.jpg",
             "date": "2025-11-05",
-            "coordinates": {
-                "lat": 34.99799,
-                "lng": 135.779823
-            },
-            "origin": "Kyoto, Japan",
             "time": "10:05",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6045,7 +6101,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/320s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.999775,
+                "lng": 135.780593
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "348",
@@ -6123,11 +6185,6 @@
             "id": "334",
             "image": "Japon2025_dist/PB050577.jpg",
             "date": "2025-11-05",
-            "coordinates": {
-                "lat": 34.997813,
-                "lng": 135.77904
-            },
-            "origin": "Kyoto, Japan",
             "time": "11:53",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6135,17 +6192,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/400s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.988838,
+                "lng": 135.774722
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "335",
             "image": "Japon2025_dist/PB050580.jpg",
             "date": "2025-11-05",
-            "coordinates": {
-                "lat": 34.998253,
-                "lng": 135.778922
-            },
-            "origin": "Kyoto, Japan",
             "time": "11:58",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6153,7 +6211,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1600s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.986994,
+                "lng": 135.773615
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "352",
@@ -6231,11 +6295,6 @@
             "id": "336",
             "image": "Japon2025_dist/PB050582.jpg",
             "date": "2025-11-05",
-            "coordinates": {
-                "lat": 34.998292,
-                "lng": 135.778947
-            },
-            "origin": "Kyoto, Japan",
             "time": "12:07",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6243,7 +6302,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/640s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.985842,
+                "lng": 135.772329
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "356",
@@ -6285,11 +6350,6 @@
             "id": "337",
             "image": "Japon2025_dist/PB050585.jpg",
             "date": "2025-11-05",
-            "coordinates": {
-                "lat": 34.997513,
-                "lng": 135.778986
-            },
-            "origin": "Kyoto, Japan",
             "time": "12:13",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6297,7 +6357,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/100s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.983894,
+                "lng": 135.771033
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "358",
@@ -6321,11 +6387,6 @@
             "id": "338",
             "image": "Japon2025_dist/PB050588.jpg",
             "date": "2025-11-05",
-            "coordinates": {
-                "lat": 34.997869,
-                "lng": 135.778781
-            },
-            "origin": "Kyoto, Japan",
             "time": "12:25",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6333,7 +6394,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/40s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.981675,
+                "lng": 135.76904
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "359",
@@ -6357,11 +6424,6 @@
             "id": "339",
             "image": "Japon2025_dist/PB050590.jpg",
             "date": "2025-11-05",
-            "coordinates": {
-                "lat": 34.997473,
-                "lng": 135.779102
-            },
-            "origin": "Kyoto, Japan",
             "time": "12:31",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6369,7 +6431,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.980272,
+                "lng": 135.76839
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "360",
@@ -6573,22 +6641,18 @@
             "id": "371",
             "image": "Japon2025_dist/PSX_20251105_180646.jpg",
             "date": "2025-11-05",
+            "time": "18:06",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 34.884516,
-                "lng": 135.509002
+                "lat": 34.885122,
+                "lng": 135.511557
             },
-            "origin": "Ibaraki, Japan",
-            "time": "18:06"
+            "origin": "Ibaraki, Japan"
         },
         {
             "id": "372",
             "image": "Japon2025_dist/PB060594.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.681821,
-                "lng": 134.249798
-            },
-            "origin": "Setouchi, Japan",
             "time": "08:02",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6596,17 +6660,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/640s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.409555,
+                "lng": 132.556107
+            },
+            "origin": "Hiroshima, Japan"
         },
         {
             "id": "373",
             "image": "Japon2025_dist/PB060595.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.682213,
-                "lng": 134.249449
-            },
-            "origin": "Setouchi, Japan",
             "time": "08:03",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6614,7 +6679,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/640s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.409572,
+                "lng": 132.552628
+            },
+            "origin": "Hiroshima, Japan"
         },
         {
             "id": "383",
@@ -6692,11 +6763,6 @@
             "id": "374",
             "image": "Japon2025_dist/PB060597.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.589054,
-                "lng": 133.667464
-            },
-            "origin": "Kurashiki, Japan",
             "time": "10:47",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6704,7 +6770,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/400s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.395366,
+                "lng": 132.454112
+            },
+            "origin": "Hiroshima, Japan"
         },
         {
             "id": "389",
@@ -6728,11 +6800,6 @@
             "id": "375",
             "image": "Japon2025_dist/PB060598.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.588157,
-                "lng": 133.666392
-            },
-            "origin": "Kurashiki, Japan",
             "time": "10:48",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6740,7 +6807,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/320s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.395659,
+                "lng": 132.454609
+            },
+            "origin": "Hiroshima, Japan"
         },
         {
             "id": "390",
@@ -6800,11 +6873,6 @@
             "id": "376",
             "image": "Japon2025_dist/PB060601.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.583989,
-                "lng": 133.637338
-            },
-            "origin": "Kurashiki, Japan",
             "time": "10:56",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6812,17 +6880,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/500s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.394868,
+                "lng": 132.453662
+            },
+            "origin": "Hiroshima, Japan"
         },
         {
             "id": "377",
             "image": "Japon2025_dist/PB060603.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.58193,
-                "lng": 133.623741
-            },
-            "origin": "Yakage, Japan",
             "time": "11:00",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6830,7 +6899,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/400s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.393499,
+                "lng": 132.453358
+            },
+            "origin": "Hiroshima, Japan"
         },
         {
             "id": "393",
@@ -6926,11 +7001,6 @@
             "id": "378",
             "image": "Japon2025_dist/PB060610.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.569549,
-                "lng": 133.551517
-            },
-            "origin": "Kasaoka, Japan",
             "time": "11:20",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6938,7 +7008,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/800s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.387168,
+                "lng": 132.444777
+            },
+            "origin": "Hiroshima, Japan"
         },
         {
             "id": "398",
@@ -6962,11 +7038,6 @@
             "id": "379",
             "image": "Japon2025_dist/PB060611.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.554019,
-                "lng": 133.451169
-            },
-            "origin": "Ibara, Japan",
             "time": "11:49",
             "exif": {
                 "model": "E-M10MarkII",
@@ -6974,7 +7045,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/500s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.368993,
+                "lng": 132.418248
+            },
+            "origin": "Hiroshima, Japan"
         },
         {
             "id": "399",
@@ -7016,11 +7093,6 @@
             "id": "380",
             "image": "Japon2025_dist/PB060612.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.496784,
-                "lng": 133.094615
-            },
-            "origin": "Onomichi, Japan",
             "time": "13:29",
             "exif": {
                 "model": "E-M10MarkII",
@@ -7028,17 +7100,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/500s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.305265,
+                "lng": 132.327143
+            },
+            "origin": "Hatsukaichi, Japan"
         },
         {
             "id": "381",
             "image": "Japon2025_dist/PB060615.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.495845,
-                "lng": 133.087778
-            },
-            "origin": "Onomichi, Japan",
             "time": "13:31",
             "exif": {
                 "model": "E-M10MarkII",
@@ -7046,7 +7119,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/100s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.304099,
+                "lng": 132.325115
+            },
+            "origin": "Hatsukaichi, Japan"
         },
         {
             "id": "401",
@@ -7178,11 +7257,6 @@
             "id": "382",
             "image": "Japon2025_dist/PB060622.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.456151,
-                "lng": 132.844238
-            },
-            "origin": "Higashi Hiroshima, Japan",
             "time": "14:40",
             "exif": {
                 "model": "E-M10MarkII",
@@ -7190,7 +7264,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1600s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.297277,
+                "lng": 132.320735
+            },
+            "origin": "Hatsukaichi, Japan"
         },
         {
             "id": "408",
@@ -7466,11 +7546,6 @@
             "id": "384",
             "image": "Japon2025_dist/PB060624.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.396951,
-                "lng": 132.471523
-            },
-            "origin": "Hiroshima, Japan",
             "time": "16:48",
             "exif": {
                 "model": "E-M10MarkII",
@@ -7478,17 +7553,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1600s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.308273,
+                "lng": 132.368503
+            },
+            "origin": "Etajima, Japan"
         },
         {
             "id": "385",
             "image": "Japon2025_dist/PB060626.jpg",
             "date": "2025-11-06",
-            "coordinates": {
-                "lat": 34.396682,
-                "lng": 132.471924
-            },
-            "origin": "Hiroshima, Japan",
             "time": "16:48",
             "exif": {
                 "model": "E-M10MarkII",
@@ -7496,7 +7572,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/640s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.307647,
+                "lng": 132.368123
+            },
+            "origin": "Etajima, Japan"
         },
         {
             "id": "423",
@@ -7808,11 +7890,6 @@
             "id": "435",
             "image": "Japon2025_dist/PB080640.jpg",
             "date": "2025-11-08",
-            "coordinates": {
-                "lat": 34.894621,
-                "lng": 135.063342
-            },
-            "origin": "Kato, Japan",
             "time": "09:07",
             "exif": {
                 "model": "E-M10MarkII",
@@ -7820,7 +7897,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.039423,
+                "lng": 135.729518
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "447",
@@ -8168,11 +8251,6 @@
             "id": "436",
             "image": "Japon2025_dist/PB080650.jpg",
             "date": "2025-11-08",
-            "coordinates": {
-                "lat": 34.978479,
-                "lng": 135.451253
-            },
-            "origin": "Nose, Japan",
             "time": "13:46",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8180,17 +8258,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.029904,
+                "lng": 135.724642
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "437",
             "image": "Japon2025_dist/PB080651.jpg",
             "date": "2025-11-08",
-            "coordinates": {
-                "lat": 34.978589,
-                "lng": 135.45173
-            },
-            "origin": "Nose, Japan",
             "time": "13:47",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8198,17 +8277,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1600s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.029106,
+                "lng": 135.725141
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "438",
             "image": "Japon2025_dist/PB080662.jpg",
             "date": "2025-11-08",
-            "coordinates": {
-                "lat": 34.980135,
-                "lng": 135.459848
-            },
-            "origin": "Nose, Japan",
             "time": "13:53",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8216,17 +8296,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.029311,
+                "lng": 135.724432
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "439",
             "image": "Japon2025_dist/PB080671.jpg",
             "date": "2025-11-08",
-            "coordinates": {
-                "lat": 34.98196,
-                "lng": 135.468455
-            },
-            "origin": "Nose, Japan",
             "time": "13:59",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8234,7 +8315,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1000s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.028353,
+                "lng": 135.723563
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "466",
@@ -8402,12 +8489,13 @@
             "id": "475",
             "image": "Japon2025_dist/PSX_20251108_201454~2.jpg",
             "date": "2025-11-08",
+            "time": "15:24",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.014691,
-                "lng": 135.683023
+                "lat": 35.014846,
+                "lng": 135.683523
             },
-            "origin": "Kyoto, Japan",
-            "time": "15:24"
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "476",
@@ -8431,11 +8519,6 @@
             "id": "441",
             "image": "Japon2025_dist/PB080687.jpg",
             "date": "2025-11-08",
-            "coordinates": {
-                "lat": 35.008571,
-                "lng": 135.589779
-            },
-            "origin": "Kameoka, Japan",
             "time": "15:26",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8443,17 +8526,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/160s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.015098,
+                "lng": 135.684802
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "442",
             "image": "Japon2025_dist/PB080688.jpg",
             "date": "2025-11-08",
-            "coordinates": {
-                "lat": 35.010228,
-                "lng": 135.597039
-            },
-            "origin": "Kameoka, Japan",
             "time": "15:32",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8461,7 +8545,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.015691,
+                "lng": 135.68579
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "477",
@@ -8575,12 +8665,13 @@
             "id": "483",
             "image": "Japon2025_dist/PXL_20251108_070047837~2.jpg",
             "date": "2025-11-08",
+            "time": "16:00",
+            "coords_disabled": true,
             "coordinates": {
-                "lat": 35.018414,
-                "lng": 135.692738
+                "lat": 35.018247,
+                "lng": 135.692429
             },
-            "origin": "Kyoto, Japan",
-            "time": "16:00"
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "484",
@@ -8856,11 +8947,6 @@
             "id": "497",
             "image": "Japon2025_dist/PB100699.jpg",
             "date": "2025-11-10",
-            "coordinates": {
-                "lat": 34.826937,
-                "lng": 135.803456
-            },
-            "origin": "Joyo, Japan",
             "time": "12:49",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8868,7 +8954,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.687751,
+                "lng": 135.839877
+            },
+            "origin": "Nara, Japan"
         },
         {
             "id": "506",
@@ -8910,11 +9002,6 @@
             "id": "498",
             "image": "Japon2025_dist/PB100709.jpg",
             "date": "2025-11-10",
-            "coordinates": {
-                "lat": 34.821697,
-                "lng": 135.803863
-            },
-            "origin": "Ide, Japan",
             "time": "13:02",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8922,17 +9009,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1600s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.687975,
+                "lng": 135.838983
+            },
+            "origin": "Nara, Japan"
         },
         {
             "id": "499",
             "image": "Japon2025_dist/PB100710.jpg",
             "date": "2025-11-10",
-            "coordinates": {
-                "lat": 34.822158,
-                "lng": 135.804005
-            },
-            "origin": "Ide, Japan",
             "time": "13:02",
             "exif": {
                 "model": "E-M10MarkII",
@@ -8940,7 +9028,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.687762,
+                "lng": 135.839386
+            },
+            "origin": "Nara, Japan"
         },
         {
             "id": "508",
@@ -9036,11 +9130,6 @@
             "id": "500",
             "image": "Japon2025_dist/PB100713.jpg",
             "date": "2025-11-10",
-            "coordinates": {
-                "lat": 34.80773,
-                "lng": 135.807761
-            },
-            "origin": "Ide, Japan",
             "time": "13:39",
             "exif": {
                 "model": "E-M10MarkII",
@@ -9048,7 +9137,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/60s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.690294,
+                "lng": 135.836541
+            },
+            "origin": "Nara, Japan"
         },
         {
             "id": "513",
@@ -9144,11 +9239,6 @@
             "id": "501",
             "image": "Japon2025_dist/PB100718.jpg",
             "date": "2025-11-10",
-            "coordinates": {
-                "lat": 34.771384,
-                "lng": 135.818155
-            },
-            "origin": "Kizugawa, Japan",
             "time": "15:18",
             "exif": {
                 "model": "E-M10MarkII",
@@ -9156,17 +9246,18 @@
                 "aperture": "f/0.0",
                 "shutter": "1/250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.701725,
+                "lng": 135.835156
+            },
+            "origin": "Nara, Japan"
         },
         {
             "id": "502",
             "image": "Japon2025_dist/PB100720.jpg",
             "date": "2025-11-10",
-            "coordinates": {
-                "lat": 34.770662,
-                "lng": 135.817377
-            },
-            "origin": "Kizugawa, Japan",
             "time": "15:18",
             "exif": {
                 "model": "E-M10MarkII",
@@ -9174,7 +9265,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/500s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.701806,
+                "lng": 135.835187
+            },
+            "origin": "Nara, Japan"
         },
         {
             "id": "518",
@@ -9234,11 +9331,6 @@
             "id": "503",
             "image": "Japon2025_dist/PB100721.jpg",
             "date": "2025-11-10",
-            "coordinates": {
-                "lat": 34.765019,
-                "lng": 135.819196
-            },
-            "origin": "Kizugawa, Japan",
             "time": "15:35",
             "exif": {
                 "model": "E-M10MarkII",
@@ -9246,7 +9338,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 34.706639,
+                "lng": 135.833791
+            },
+            "origin": "Nara, Japan"
         },
         {
             "id": "522",
@@ -9270,11 +9368,6 @@
             "id": "521",
             "image": "Japon2025_dist/PB110730.jpg",
             "date": "2025-11-11",
-            "coordinates": {
-                "lat": 34.874836,
-                "lng": 135.78925
-            },
-            "origin": "Uji, Japan",
             "time": "10:43",
             "exif": {
                 "model": "E-M10MarkII",
@@ -9282,7 +9375,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/4000s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 35.145941,
+                "lng": 135.849957
+            },
+            "origin": "Kyoto, Japan"
         },
         {
             "id": "523",
@@ -9450,11 +9549,6 @@
             "id": "529",
             "image": "Japon2025_dist/PB120735.jpg",
             "date": "2025-11-12",
-            "coordinates": {
-                "lat": 36.5644,
-                "lng": 136.657231
-            },
-            "origin": "Kanazawa, Japan",
             "time": "09:12",
             "exif": {
                 "model": "E-M10MarkII",
@@ -9462,7 +9556,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1000s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 36.563545,
+                "lng": 136.663148
+            },
+            "origin": "Kanazawa, Japan"
         },
         {
             "id": "535",
@@ -9486,11 +9586,6 @@
             "id": "530",
             "image": "Japon2025_dist/PB120742.jpg",
             "date": "2025-11-12",
-            "coordinates": {
-                "lat": 36.564578,
-                "lng": 136.65788
-            },
-            "origin": "Kanazawa, Japan",
             "time": "09:18",
             "exif": {
                 "model": "E-M10MarkII",
@@ -9498,7 +9593,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1600s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 36.562994,
+                "lng": 136.663429
+            },
+            "origin": "Kanazawa, Japan"
         },
         {
             "id": "536",
@@ -9558,11 +9659,6 @@
             "id": "531",
             "image": "Japon2025_dist/PB120744.jpg",
             "date": "2025-11-12",
-            "coordinates": {
-                "lat": 36.564531,
-                "lng": 136.657261
-            },
-            "origin": "Kanazawa, Japan",
             "time": "09:35",
             "exif": {
                 "model": "E-M10MarkII",
@@ -9570,7 +9666,13 @@
                 "aperture": "f/0.0",
                 "shutter": "1/1250s",
                 "focal": "0mm"
-            }
+            },
+            "coords_disabled": true,
+            "coordinates": {
+                "lat": 36.5616,
+                "lng": 136.663773
+            },
+            "origin": "Kanazawa, Japan"
         },
         {
             "id": "539",
@@ -10440,34 +10542,37 @@
             "id": "587",
             "image": "Japon2025_dist/1765876435808.jpg",
             "date": "2025-12-21",
+            "time": "06:10",
+            "coords_disabled": true,
             "coordinates": {
                 "lat": 35.667536,
                 "lng": 139.711078
             },
-            "origin": "Shibuya, Japan",
-            "time": "06:10"
+            "origin": "Shibuya, Japan"
         },
         {
             "id": "588",
             "image": "Japon2025_dist/1765876442182.jpg",
             "date": "2025-12-21",
+            "time": "06:10",
+            "coords_disabled": true,
             "coordinates": {
                 "lat": 35.667536,
                 "lng": 139.711078
             },
-            "origin": "Shibuya, Japan",
-            "time": "06:10"
+            "origin": "Shibuya, Japan"
         },
         {
             "id": "589",
             "image": "Japon2025_dist/1765876452258.jpg",
             "date": "2025-12-21",
+            "time": "06:10",
+            "coords_disabled": true,
             "coordinates": {
                 "lat": 35.667536,
                 "lng": 139.711078
             },
-            "origin": "Shibuya, Japan",
-            "time": "06:10"
+            "origin": "Shibuya, Japan"
         }
     ]
 }

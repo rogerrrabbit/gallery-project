@@ -5,9 +5,9 @@ build_gallery.py
 All-in-one script to prepare a gallery from a folder of source images.
 
 Usage:
-    python3 build_gallery.py <input_folder>
+    python3 build_gallery.py <input_folder> [--coords-only]
 
-Operations:
+Operations (full mode):
 1. Creates output directory `<input_folder>_dist`.
 2. Optimizes images (max 2560px, quality 80%) into output directory.
 3. Generates thumbnails (400px) into `<input_folder>_dist/thumbnails`.
@@ -15,6 +15,12 @@ Operations:
 5. Interpolates missing GPS data from time-adjacent photos.
 6. Reverse geocodes coordinates to City, Country.
 7. Generates/Updates <input_folder>.json with the gallery data.
+
+Operations (--coords-only mode):
+- Reads existing <input_folder>.json
+- Interpolates missing coordinates from time-adjacent photos
+- Reverse geocodes coordinates for images missing origin
+- Updates <input_folder>.json (preserves existing data)
 
 Dependencies:
     pip install Pillow piexif requests
@@ -28,6 +34,7 @@ import time
 import random
 import urllib.request
 import urllib.parse
+import argparse
 from datetime import datetime
 from fractions import Fraction
 from typing import Optional, Tuple, List, Dict, Any
@@ -284,12 +291,133 @@ def interpolate_missing(sorted_items: List[dict]) -> List[dict]:
 # Main Execution
 # ---------------------------------------------------------------------
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python3 build_gallery.py <input_folder>")
+def coords_only_mode(folder_name: str, json_path):
+    """
+    Mode pour mettre à jour les coordonnées manquantes et les origins
+    à partir du JSON existant uniquement (sans traiter les images source).
+    """
+    print(f"JSON:   {json_path}")
+    print("-" * 40)
+    print("Mode: Coords-only (updating missing coords and origins)")
+    
+    if not json_path.exists():
+        print(f"Error: JSON file not found: {json_path}")
         sys.exit(1)
+    
+    # Load existing JSON
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    images = data.get('images', [])
+    if not images:
+        print("No images found in JSON")
+        return
+    
+    print(f"Loaded {len(images)} images from JSON")
+    
+    # Build items_data from existing JSON
+    items_data = []
+    for img in images:
+        try:
+            dt = datetime.strptime(img.get('date', '2000-01-01') + ' ' + img.get('time', '00:00'), '%Y-%m-%d %H:%M')
+        except:
+            dt = datetime.now()
+        
+        coords = None
+        if 'coordinates' in img and 'lat' in img['coordinates'] and 'lng' in img['coordinates']:
+            coords = (img['coordinates']['lat'], img['coordinates']['lng'])
+        
+        items_data.append({
+            'rel_path': img.get('image', ''),
+            'datetime': dt,
+            'coords': coords,
+            'existing_entry': img
+        })
+    
+    # Sort by datetime
+    items_data.sort(key=lambda x: (x['datetime'].timestamp(), x['rel_path']))
+    
+    # Interpolate missing coords
+    print("Interpolating missing coordinates...")
+    known = [i for i, it in enumerate(items_data) if it['coords'] is not None]
+    
+    if known:
+        n = len(items_data)
+        
+        # Fill edges
+        for i in range(known[0]):
+            items_data[i]['coords'] = items_data[known[0]]['coords']
+        for i in range(known[-1]+1, n):
+            items_data[i]['coords'] = items_data[known[-1]]['coords']
+        
+        # Interpolate gaps
+        for k1, k2 in zip(known, known[1:]):
+            item1, item2 = items_data[k1], items_data[k2]
+            t1, t2 = item1['datetime'].timestamp(), item2['datetime'].timestamp()
+            
+            if t2 == t1:
+                for j in range(k1+1, k2):
+                    items_data[j]['coords'] = item1['coords']
+            else:
+                for j in range(k1+1, k2):
+                    tc = items_data[j]['datetime'].timestamp()
+                    f = (tc - t1) / (t2 - t1)
+                    
+                    lat = item1['coords'][0] + f*(item2['coords'][0] - item1['coords'][0])
+                    lng = item1['coords'][1] + f*(item2['coords'][1] - item1['coords'][1])
+                    
+                    # Add random noise
+                    noise = 0.0005
+                    lat += random.uniform(-noise, noise)
+                    lng += random.uniform(-noise, noise)
+                    
+                    items_data[j]['coords'] = (lat, lng)
+    
+    # Reverse geocode for missing origins
+    print("Geocoding missing origins...")
+    total = len(items_data)
+    for i, item in enumerate(items_data, 1):
+        if i % 10 == 0:
+            print(f"  {i}/{total}", file=sys.stderr)
+        
+        entry = item['existing_entry']
+        
+        # Update coordinates if interpolated
+        if item['coords']:
+            lat, lng = item['coords']
+            if 'coordinates' not in entry or entry['coordinates'] is None:
+                entry["coordinates"] = {"lat": round(lat, 6), "lng": round(lng, 6)}
+            
+            # Geocode only if missing origin
+            if 'origin' not in entry or not entry['origin']:
+                origin = reverse_geocode(lat, lng)
+                if origin:
+                    entry["origin"] = origin
+    
+    # Save updated JSON
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+    
+    print(f"\nCompleted! JSON saved to {json_path}")
 
-    input_dir = Path(sys.argv[1])
+def main():
+    parser = argparse.ArgumentParser(description='Build gallery from source images')
+    parser.add_argument('input_folder', help='Source folder name (e.g., Japon2025)')
+    parser.add_argument('--coords-only', action='store_true', 
+                       help='Update only coordinates and origins in existing JSON')
+    args = parser.parse_args()
+    
+    if args.coords_only:
+        input_dir = Path(args.input_folder)
+        folder_name = input_dir.name if input_dir.is_dir() else args.input_folder
+        json_path = Path(args.input_folder).parent / f"{folder_name}.json"
+        if not json_path.is_file():
+            json_path = Path(f"{folder_name}.json")
+        coords_only_mode(folder_name, json_path)
+        return
+    
+    # Full mode (original behavior)
+    input_dir = Path(args.input_folder)
     if not input_dir.is_dir():
         print(f"Error: {input_dir} is not a directory")
         sys.exit(1)
