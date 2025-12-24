@@ -591,9 +591,107 @@ function closeModal() {
     document.body.style.overflow = 'auto';
 }
 
+// Layout helpers
+function debounce(fn, wait = 120) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), wait);
+    };
+}
+
+function parsePx(val) {
+    if (!val) return 0;
+    if (val.endsWith('px')) return parseFloat(val);
+    if (val.endsWith('rem')) return parseFloat(val) * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    return parseFloat(val) || 0;
+}
+
+function updateLayoutSizes() {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+
+    // Map tile height for grid view
+    if (!document.body.classList.contains('view-split')) {
+        const firstCard = gallery.querySelector('.card');
+        if (firstCard) {
+            const tileHeight = Math.round(firstCard.getBoundingClientRect().height);
+            document.documentElement.style.setProperty('--map-tile-height', `${tileHeight}px`);
+        } else {
+            document.documentElement.style.setProperty('--map-tile-height', '300px');
+        }
+    } else {
+        // Let split view rules manage height
+        document.documentElement.style.setProperty('--map-tile-height', 'auto');
+    }
+
+    // Compute left width for split view based on current grid column size
+    const style = getComputedStyle(gallery);
+    const gap = parsePx(style.gap || style.columnGap || style.gridGap || '0px');
+    const paddingLeft = parsePx(style.paddingLeft);
+    const paddingRight = parsePx(style.paddingRight);
+    const usableWidth = gallery.clientWidth - paddingLeft - paddingRight;
+
+    let minCol;
+    if (window.innerWidth <= 480) {
+        minCol = usableWidth;
+    } else if (window.innerWidth <= 768) {
+        minCol = 200;
+    } else if (window.innerWidth <= 1024) {
+        minCol = 250;
+    } else {
+        minCol = 300;
+    }
+
+    const N = Math.max(1, Math.floor((usableWidth + gap) / (minCol + gap)));
+    const columnsDisplayed = Math.max(1, Math.floor(N / 2));
+    const columnWidth = (usableWidth - (N - 1) * gap) / N;
+    const leftWidth = Math.round(columnsDisplayed * columnWidth + (columnsDisplayed - 1) * gap);
+    document.documentElement.style.setProperty('--left-width', `${leftWidth}px`);
+
+    // If split view is active, set gallery to have `columnsDisplayed` left columns and a final map column
+    const mapTile = gallery.querySelector('.map-tile');
+    const banner = gallery.querySelector('.city-banner');
+    if (document.body.classList.contains('view-split')) {
+        const columns = columnsDisplayed;
+        gallery.style.gridTemplateColumns = `repeat(${columns}, minmax(${minCol}px, 1fr)) 1fr`;
+
+        if (mapTile) {
+            mapTile.style.gridColumnStart = columns + 1;
+            mapTile.style.gridRow = '1 / 1000';
+        }
+
+        if (banner) {
+            banner.style.gridColumn = `1 / ${columns + 1}`;
+        }
+    } else {
+        // revert any split-view overrides
+        gallery.style.gridTemplateColumns = '';
+        if (mapTile) {
+            mapTile.style.gridColumnStart = '';
+            mapTile.style.gridRow = '';
+        }
+        if (banner) banner.style.gridColumn = '';
+    }
+
+    // Trigger map resize if exists
+    if (typeof map !== 'undefined' && map && map.resize) {
+        setTimeout(() => map.resize(), 300);
+    }
+}
+
+const debouncedUpdateLayout = debounce(updateLayoutSizes, 120);
+window.addEventListener('resize', debouncedUpdateLayout);
+new MutationObserver(debouncedUpdateLayout).observe(document.querySelector('.gallery') || document.body, { childList: true, subtree: true });
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
     loadGalleryData();
+    // Ensure layout metrics are set after loading
+    updateLayoutSizes();
+
+    // Recompute when images load
+    document.addEventListener('load', debouncedUpdateLayout, true);
 
     // Close button
     document.getElementById('modal-close').addEventListener('click', closeModal);
@@ -625,8 +723,14 @@ document.addEventListener('DOMContentLoaded', () => {
             viewToggle.innerHTML = isSplit ? gridIcon : splitIcon;
             viewToggle.setAttribute('aria-label', isSplit ? 'Switch to Grid View' : 'Switch to Split View');
 
+            // Update computed sizes immediately (and again after transition)
+            updateLayoutSizes();
+
             // Resize map after transition
             setTimeout(() => {
+                // Recompute after layout settles
+                updateLayoutSizes();
+
                 if (map) {
                     map.resize();
                     // Re-fit bounds to ensure all visible markers are seen in the new layout
