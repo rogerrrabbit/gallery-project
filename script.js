@@ -34,7 +34,7 @@ async function loadGalleryData() {
             galleryData = Array.isArray(data) ? data : [];
         }
 
-        filteredData = galleryData;
+        filteredData = []; // Start empty to trigger initial render in updateGalleryFromMap
         setupImageObserver();
 
         if (mapEnabled) {
@@ -111,9 +111,13 @@ function setupImageObserver() {
 function renderGallery() {
     const gallery = document.getElementById('gallery');
     const mapContainer = document.getElementById('map-container');
-    gallery.innerHTML = '';
-    if (mapContainer) {
-        gallery.appendChild(mapContainer);
+
+    // Remove only cards and banners, preserving the map container
+    const itemsToRemove = gallery.querySelectorAll('.card, .city-banner');
+    itemsToRemove.forEach(el => el.remove());
+
+    if (mapContainer && mapContainer.parentNode !== gallery) {
+        gallery.prepend(mapContainer);
     }
 
     let lastOrigin = null;
@@ -159,6 +163,7 @@ function renderGallery() {
     });
 
     renderCityMenu(filteredData);
+    updateLayoutSizes();
 }
 
 
@@ -368,9 +373,6 @@ function initMap() {
             map.getCanvas().style.cursor = '';
         });
 
-        // Filter gallery on map move
-        map.on('moveend', updateGalleryFromMap);
-
         // Fit bounds to show all markers
         const bounds = new maplibregl.LngLatBounds();
         itemsWithCoords.forEach(item => {
@@ -390,16 +392,23 @@ function updateGalleryFromMap() {
     const bounds = map.getBounds();
 
     // Filter items whose coordinates are within current map bounds
-    filteredData = galleryData.filter(item => {
+    const nextFilteredData = galleryData.filter(item => {
         if (!item.coordinates) return false;
         const { lat, lng } = item.coordinates;
         return bounds.contains([lng, lat]);
     });
 
-    renderGallery();
+    // Optimization: Only re-render if the set of visible items has changed
+    const currentIds = filteredData.map(i => i.id).join(',');
+    const nextIds = nextFilteredData.map(i => i.id).join(',');
 
-    // Update map elements logic based on visible data
-    if (map && map.isSourceLoaded('photos')) {
+    if (currentIds !== nextIds) {
+        filteredData = nextFilteredData;
+        renderGallery();
+    }
+
+    // Update markers based on current zoom/view even if gallery didn't change item set
+    if (map.isSourceLoaded('photos')) {
         updateClusterLabels();
         updateImageMarkers();
     }
@@ -613,13 +622,30 @@ function updateLayoutSizes() {
 
     // Map tile height for grid view
     if (!document.body.classList.contains('view-split')) {
-        const firstCard = gallery.querySelector('.card');
-        if (firstCard) {
-            const tileHeight = Math.round(firstCard.getBoundingClientRect().height);
-            document.documentElement.style.setProperty('--map-tile-height', `${tileHeight}px`);
+        // Calculate expected card height based on grid width (aspect-ratio: 1)
+        const style = getComputedStyle(gallery);
+        const paddingLeft = parsePx(style.paddingLeft);
+        const paddingRight = parsePx(style.paddingRight);
+        const gap = parsePx(style.gap || style.columnGap || style.gridGap || '0px');
+        const usableWidth = gallery.clientWidth - paddingLeft - paddingRight;
+
+        // Match logic used for split view width calculation
+        let minCol;
+        if (window.innerWidth <= 480) {
+            minCol = usableWidth;
+        } else if (window.innerWidth <= 768) {
+            minCol = 200;
+        } else if (window.innerWidth <= 1024) {
+            minCol = 250;
         } else {
-            document.documentElement.style.setProperty('--map-tile-height', '300px');
+            minCol = 300;
         }
+
+        const N = Math.max(1, Math.floor((usableWidth + gap) / (minCol + gap)));
+        const columnWidth = (usableWidth - (N - 1) * gap) / N;
+        const tileHeight = Math.round(columnWidth);
+
+        document.documentElement.style.setProperty('--map-tile-height', `${tileHeight}px`);
     } else {
         // Let split view rules manage height
         document.documentElement.style.setProperty('--map-tile-height', 'auto');
@@ -654,16 +680,17 @@ function updateLayoutSizes() {
     const banner = gallery.querySelector('.city-banner');
     if (document.body.classList.contains('view-split')) {
         const columns = columnsDisplayed;
-        gallery.style.gridTemplateColumns = `repeat(${columns}, minmax(${minCol}px, 1fr)) 1fr`;
+        gallery.style.gridTemplateColumns = `repeat(${columns}, ${minCol}px) 1fr`;
 
         if (mapTile) {
             mapTile.style.gridColumnStart = columns + 1;
             mapTile.style.gridRow = '1 / 1000';
         }
 
-        if (banner) {
-            banner.style.gridColumn = `1 / ${columns + 1}`;
-        }
+        const banners = gallery.querySelectorAll('.city-banner');
+        banners.forEach(b => {
+            b.style.gridColumn = `1 / ${columns + 1}`;
+        });
     } else {
         // revert any split-view overrides
         gallery.style.gridTemplateColumns = '';
@@ -671,18 +698,22 @@ function updateLayoutSizes() {
             mapTile.style.gridColumnStart = '';
             mapTile.style.gridRow = '';
         }
-        if (banner) banner.style.gridColumn = '';
+        const banners = gallery.querySelectorAll('.city-banner');
+        banners.forEach(b => b.style.gridColumn = '');
     }
 
     // Trigger map resize if exists
     if (typeof map !== 'undefined' && map && map.resize) {
-        setTimeout(() => map.resize(), 300);
+        // Use a small delay for CSS transitions to finish, but ensure it happens
+        clearTimeout(window._mapResizeTimer);
+        window._mapResizeTimer = setTimeout(() => {
+            map.resize();
+        }, 400);
     }
 }
 
 const debouncedUpdateLayout = debounce(updateLayoutSizes, 120);
 window.addEventListener('resize', debouncedUpdateLayout);
-new MutationObserver(debouncedUpdateLayout).observe(document.querySelector('.gallery') || document.body, { childList: true, subtree: true });
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
