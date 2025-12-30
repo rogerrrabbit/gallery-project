@@ -10,6 +10,8 @@
     --secondary-color: #764ba2;
     --text-color: #333;
     --banner-text-color: #4c51bf;
+    --left-width: 340px;
+    --map-tile-height: auto;
 }
 
 body {
@@ -62,7 +64,8 @@ header p {
 .gallery {
     margin: 2rem auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, 300px);
+    justify-content: center;
     gap: 2rem;
     padding: 1rem 2rem;
 }
@@ -80,6 +83,8 @@ header p {
 .map-tile {
     grid-column: 1 / -1;
     /* Span all available columns */
+    height: var(--map-tile-height);
+    /* In grid view the height is controlled via JS to match a photo tile */
     aspect-ratio: 3 / 1;
     border-radius: 20px;
     overflow: hidden;
@@ -393,7 +398,7 @@ header p {
 /* ===== Responsive Design ===== */
 @media (max-width: 1024px) {
     .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, 250px);
         gap: 1.5rem;
     }
 
@@ -426,7 +431,7 @@ header p {
     }
 
     .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, 200px);
         gap: 1rem;
     }
 
@@ -584,8 +589,8 @@ body.view-split .city-menu {
 
 /* ===== Split View Mode ===== */
 body.view-split .gallery {
-    /* 340px for cards (Left), 1fr for Map (Right) */
-    grid-template-columns: 340px 1fr;
+    /* Left column width is computed dynamically (var(--left-width)) */
+    grid-template-columns: var(--left-width, 340px) 1fr;
     max-width: none;
     padding: 0 2rem 1rem 2rem;
     /* Remove top padding to lock map immediately */
@@ -611,9 +616,16 @@ body.view-split .map-tile {
     /* Match city-banner margin-top */
 }
 
+/* In grid (non-split) view the map height is set to match a single photo tile */
+body:not(.view-split) .map-tile {
+    height: var(--map-tile-height);
+    aspect-ratio: auto;
+}
+
+
 body.view-split .card {
-    grid-column: 1;
-    /* Cards on Left */
+    grid-column: auto;
+    /* Allow cards to flow into left columns (calculated by JS) */
 }
 
 body.view-split .city-banner {
@@ -627,7 +639,7 @@ body.view-split .city-banner {
 /* Responsive adjustments for Split View */
 @media (max-width: 1024px) {
     body.view-split .gallery {
-        grid-template-columns: 280px 1fr;
+        grid-template-columns: var(--left-width, 280px) 1fr;
     }
 }
 
@@ -641,7 +653,7 @@ body.view-split .city-banner {
 
     /* Enforce normal grid layout even if class is present on mobile */
     body.view-split .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, 200px);
     }
 
     body.view-split .map-tile {
