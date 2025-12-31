@@ -8,6 +8,9 @@ let clusterMarkers = []; // Store cluster marker label instances
 let bannersEnabled = true; // Default to true
 let mapEnabled = true; // Default to true
 
+// Expose for edit mode
+window.galleryData = galleryData;
+
 // Get thumbnail path for an image
 function getThumbnailPath(imagePath) {
     const parts = imagePath.split('/');
@@ -21,7 +24,6 @@ function getThumbnailPath(imagePath) {
 }
 
 // Load gallery data
-// Load gallery data
 async function loadGalleryData() {
     try {
         const response = await fetch('Japon2025.json');
@@ -33,6 +35,9 @@ async function loadGalleryData() {
         } else {
             galleryData = Array.isArray(data) ? data : [];
         }
+
+        // Sync to window for edit mode access
+        window.galleryData = galleryData;
 
         filteredData = []; // Start empty to trigger initial render in updateGalleryFromMap
         setupImageObserver();
@@ -816,3 +821,17 @@ document.addEventListener('DOMContentLoaded', () => {
         navigateModal(1);
     });
 });
+
+// Expose globals for edit mode
+window.map = null; // Will be set when initMap runs
+window.imageMarkers = imageMarkers;
+window.renderGallery = renderGallery;
+window.getThumbnailPath = getThumbnailPath;
+
+// Update window.map after map initialization
+const originalInitMap = initMap;
+initMap = function () {
+    originalInitMap();
+    window.map = map;
+    window.imageMarkers = imageMarkers;
+};

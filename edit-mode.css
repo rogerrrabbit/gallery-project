@@ -1,0 +1,343 @@
+/* Edit Mode Styles */
+
+/* Edit Toggle Button */
+.edit-toggle {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.edit-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(238, 90, 36, 0.4);
+}
+
+.edit-toggle.active {
+    background: linear-gradient(135deg, #00b894, #00a085);
+    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+}
+
+.edit-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Edit Panel */
+.edit-panel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    height: 100vh;
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.edit-panel.open {
+    right: 0;
+}
+
+.edit-panel-header {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-panel-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.edit-panel-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.edit-panel-close:hover {
+    opacity: 1;
+}
+
+.edit-panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* Tabs */
+.edit-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.edit-tab {
+    flex: 1;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+}
+
+.edit-tab:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.edit-tab.active {
+    background: var(--primary-color, #667eea);
+    border-color: var(--primary-color, #667eea);
+}
+
+/* Tab Content */
+.edit-tab-content {
+    display: none;
+}
+
+.edit-tab-content.active {
+    display: block;
+}
+
+/* Form Elements */
+.edit-section {
+    margin-bottom: 24px;
+}
+
+.edit-section h3 {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.edit-input:focus {
+    outline: none;
+    border-color: var(--primary-color, #667eea);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.edit-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+textarea.edit-input {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Origin List */
+.origin-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.origin-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.origin-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.origin-item.selected {
+    background: rgba(102, 126, 234, 0.3);
+    border: 1px solid var(--primary-color, #667eea);
+}
+
+.origin-item-count {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.origin-rename-input {
+    flex: 1;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* Photo Editor */
+.photo-editor {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.photo-editor-thumb {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.photo-editor-field {
+    margin-bottom: 16px;
+}
+
+.photo-editor-label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 6px;
+}
+
+.photo-coords {
+    display: flex;
+    gap: 12px;
+}
+
+.photo-coords .edit-input {
+    flex: 1;
+}
+
+/* Buttons */
+.edit-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-btn-primary {
+    background: linear-gradient(135deg, var(--primary-color, #667eea) 0%, var(--secondary-color, #5a67d8) 100%);
+    color: #fff;
+}
+
+.edit-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.edit-btn-success {
+    background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+    color: #fff;
+}
+
+.edit-btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+}
+
+.edit-btn-block {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Draggable Marker State */
+.map-marker.draggable {
+    cursor: grab;
+    border: 3px solid #ff6b6b !important;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5) !important;
+}
+
+.map-marker.dragging {
+    cursor: grabbing;
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+/* Selected Photo Highlight */
+.card.edit-selected {
+    outline: 3px solid var(--primary-color, #667eea);
+    outline-offset: 3px;
+}
+
+/* Save Footer */
+.edit-panel-footer {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Notification Toast */
+.edit-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1a1a2e;
+    color: #fff;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.edit-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.edit-toast.success {
+    border-left: 4px solid #00b894;
+}
+
+.edit-toast.error {
+    border-left: 4px solid #ff6b6b;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .edit-panel {
+        width: 100%;
+        right: -100%;
+    }
+}
