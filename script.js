@@ -8,6 +8,46 @@ let clusterMarkers = []; // Store cluster marker label instances
 let bannersEnabled = true; // Default to true
 let mapEnabled = true; // Default to true
 
+// Map style toggle state
+let isSatelliteView = true; // Start with satellite
+let is3DView = false; // Start with top-down view
+
+// Map style definitions
+const MAP_STYLES = {
+    satellite: {
+        version: 8,
+        sources: {
+            'satellite-tiles': {
+                type: 'raster',
+                tiles: [
+                    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                ],
+                tileSize: 256,
+                attribution: 'Tiles &copy; Esri'
+            },
+            'terrainSource': {
+                type: 'raster-dem',
+                tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+                encoding: 'terrarium',
+                tileSize: 256,
+                maxzoom: 15
+            }
+        },
+        layers: [
+            {
+                id: 'satellite-layer',
+                type: 'raster',
+                source: 'satellite-tiles'
+            }
+        ],
+        terrain: {
+            source: 'terrainSource',
+            exaggeration: 2.5
+        }
+    },
+    vector: 'https://tiles.openfreemap.org/styles/liberty'
+};
+
 // Get thumbnail path for an image
 function getThumbnailPath(imagePath) {
     const parts = imagePath.split('/');
@@ -239,6 +279,155 @@ function renderCityMenu(items) {
     });
 }
 
+// Add map control buttons (style toggle + 3D view toggle)
+function addMapControls(mapContainer) {
+    const controls = document.createElement('div');
+    controls.className = 'map-controls';
+
+    // Style toggle button (Satellite <-> Vector)
+    const styleBtn = document.createElement('button');
+    styleBtn.className = 'map-control-btn' + (isSatelliteView ? ' active' : '');
+    styleBtn.title = 'Basculer Satellite / Carte';
+    styleBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+    `;
+    styleBtn.addEventListener('click', () => toggleMapStyle(styleBtn));
+    controls.appendChild(styleBtn);
+
+    // 3D view toggle button
+    const viewBtn = document.createElement('button');
+    viewBtn.className = 'map-control-btn';
+    viewBtn.title = 'Vue 3D / Maquette';
+    viewBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3L2 9l10 6 10-6-10-6z"/>
+            <path d="M2 17l10 6 10-6"/>
+            <path d="M2 12l10 6 10-6"/>
+        </svg>
+    `;
+    viewBtn.addEventListener('click', () => toggle3DView(viewBtn));
+    controls.appendChild(viewBtn);
+
+    mapContainer.appendChild(controls);
+}
+
+// Toggle between satellite and vector map styles
+function toggleMapStyle(btn) {
+    isSatelliteView = !isSatelliteView;
+
+    // Store current view state
+    const center = map.getCenter();
+    const zoom = map.getZoom();
+    const pitch = map.getPitch();
+    const bearing = map.getBearing();
+
+    // Change style
+    map.setStyle(isSatelliteView ? MAP_STYLES.satellite : MAP_STYLES.vector);
+
+    // Update button state
+    btn.classList.toggle('active', isSatelliteView);
+    btn.title = isSatelliteView ? 'Passer en vue Carte' : 'Passer en vue Satellite';
+
+    // Re-add layers after style loads
+    map.once('style.load', () => {
+        // Restore view
+        map.setCenter(center);
+        map.setZoom(zoom);
+        map.setPitch(pitch);
+        map.setBearing(bearing);
+
+        // Re-enable terrain for satellite
+        if (isSatelliteView && map.getSource('terrainSource')) {
+            map.setTerrain({
+                source: 'terrainSource',
+                exaggeration: 2.5
+            });
+        }
+
+        // Re-add photo layers
+        readdPhotoLayers();
+    });
+}
+
+// Toggle 3D tilted view
+function toggle3DView(btn) {
+    is3DView = !is3DView;
+    btn.classList.toggle('active', is3DView);
+    btn.title = is3DView ? 'Vue du dessus' : 'Vue 3D / Maquette';
+
+    map.easeTo({
+        pitch: is3DView ? 60 : 0,
+        bearing: is3DView ? -20 : 0,
+        duration: 1000
+    });
+}
+
+// Re-add photo source and layers after style change
+function readdPhotoLayers() {
+    const styles = getComputedStyle(document.documentElement);
+    const primaryColor = styles.getPropertyValue('--primary-color').trim() || '#667eea';
+    const secondaryColor = styles.getPropertyValue('--secondary-color').trim() || '#5a67d8';
+    const bannerColor = styles.getPropertyValue('--banner-text-color').trim() || '#4c51bf';
+
+    // Add photo source if not exists
+    if (!map.getSource('photos')) {
+        map.addSource('photos', {
+            type: 'geojson',
+            data: toGeoJSON(galleryData),
+            cluster: true,
+            clusterMaxZoom: 14,
+            clusterRadius: 50
+        });
+    }
+
+    // Add cluster layer
+    if (!map.getLayer('clusters')) {
+        map.addLayer({
+            id: 'clusters',
+            type: 'circle',
+            source: 'photos',
+            filter: ['has', 'point_count'],
+            paint: {
+                'circle-color': [
+                    'step',
+                    ['get', 'point_count'],
+                    primaryColor,
+                    10, secondaryColor,
+                    50, bannerColor
+                ],
+                'circle-radius': [
+                    'step',
+                    ['get', 'point_count'],
+                    20,
+                    10, 25,
+                    50, 35
+                ],
+                'circle-stroke-width': 3,
+                'circle-stroke-color': '#fff'
+            }
+        });
+    }
+
+    // Add unclustered points layer
+    if (!map.getLayer('unclustered-point')) {
+        map.addLayer({
+            id: 'unclustered-point',
+            type: 'circle',
+            source: 'photos',
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+                'circle-radius': 0,
+                'circle-opacity': 0
+            }
+        });
+    }
+
+    // Re-render markers
+    updateGalleryFromMap();
+}
 
 // Initialize MapLibre GL map with clustering
 function initMap() {
@@ -254,34 +443,18 @@ function initMap() {
 
     mapContainer.style.display = 'block';
 
-    // Initialize the map with OpenStreetMap tiles (free and no API key required)
+    // Initialize the map with current style (satellite by default)
     map = new maplibregl.Map({
         container: 'map',
-        style: {
-            version: 8,
-            sources: {
-                'osm': {
-                    type: 'raster',
-                    tiles: [
-                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
-                    ],
-                    tileSize: 256,
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }
-            },
-            layers: [
-                {
-                    id: 'osm-tiles',
-                    type: 'raster',
-                    source: 'osm',
-                    minzoom: 0,
-                    maxzoom: 19
-                }
-            ]
-        },
-        center: [0, 30],
-        zoom: 2
+        style: MAP_STYLES.satellite,
+        center: [138.2529, 36.2048],
+        zoom: 5,
+        pitch: 0,
+        bearing: 0
     });
+
+    // Add map control buttons
+    addMapControls(mapContainer);
 
     // Get theme colors from CSS variables
     const styles = getComputedStyle(document.documentElement);
@@ -290,6 +463,14 @@ function initMap() {
     const bannerColor = styles.getPropertyValue('--banner-text-color').trim() || '#4c51bf';
 
     map.on('load', () => {
+
+        // Enable terrain for satellite view
+        if (isSatelliteView && map.getSource('terrainSource')) {
+            map.setTerrain({
+                source: 'terrainSource',
+                exaggeration: 2.5
+            });
+        }
 
         // Add clustered GeoJSON source
         map.addSource('photos', {
@@ -417,21 +598,40 @@ function updateGalleryFromMap() {
 function updateClusterLabels() {
     if (!map) return;
 
-    // Remove existing cluster markers
-    clusterMarkers.forEach(m => m.remove());
-    clusterMarkers = [];
-
     // Get all cluster features currently rendered
     const clusters = map.querySourceFeatures('photos', {
         filter: ['has', 'point_count']
     });
 
+    const activeClusterIds = new Set();
+
     // Deduplicate by cluster_id
+    const distinctClusters = [];
     const seen = new Set();
+
     clusters.forEach(cluster => {
         const id = cluster.properties.cluster_id;
         if (seen.has(id)) return;
         seen.add(id);
+        distinctClusters.push(cluster);
+        activeClusterIds.add(id);
+    });
+
+    // Remove markers that are no longer visible
+    for (let i = clusterMarkers.length - 1; i >= 0; i--) {
+        const marker = clusterMarkers[i];
+        if (!activeClusterIds.has(marker._clusterId)) {
+            marker.remove();
+            clusterMarkers.splice(i, 1);
+        }
+    }
+
+    // Add new markers
+    distinctClusters.forEach(cluster => {
+        const id = cluster.properties.cluster_id;
+
+        // Skip if already exists
+        if (clusterMarkers.some(m => m._clusterId === id)) return;
 
         const count = cluster.properties.point_count;
         const coords = cluster.geometry.coordinates;
@@ -445,6 +645,7 @@ function updateClusterLabels() {
             .setLngLat(coords)
             .addTo(map);
 
+        marker._clusterId = id; // Tag marker with cluster ID needed for diffing
         clusterMarkers.push(marker);
     });
 }
@@ -452,20 +653,35 @@ function updateClusterLabels() {
 function updateImageMarkers() {
     if (!map) return;
 
-    // Remove existing image markers
-    imageMarkers.forEach(marker => marker.remove());
-    imageMarkers = [];
-
     // Get all unclustered features currently visible
     const features = map.querySourceFeatures('photos', {
         filter: ['!', ['has', 'point_count']]
     });
 
-    // Create image markers for each unclustered point
+    const activePhotoIds = new Set();
+
+    // Deduplicate and track active IDs
+    features.forEach(feature => {
+        activePhotoIds.add(feature.properties.id);
+    });
+
+    // Remove markers that are no longer visible
+    for (let i = imageMarkers.length - 1; i >= 0; i--) {
+        const marker = imageMarkers[i];
+        if (!activePhotoIds.has(marker._photoId)) {
+            marker.remove();
+            imageMarkers.splice(i, 1);
+        }
+    }
+
+    // Add new markers
     const addedIds = new Set();
+    // Pre-populate with existing marker IDs to avoid adding duplicates
+    imageMarkers.forEach(m => addedIds.add(m._photoId));
+
     features.forEach(feature => {
         const id = feature.properties.id;
-        if (addedIds.has(id)) return; // Avoid duplicates
+        if (addedIds.has(id)) return; // Already exists
         addedIds.add(id);
 
         const coords = feature.geometry.coordinates;
@@ -490,6 +706,7 @@ function updateImageMarkers() {
             .setLngLat(coords)
             .addTo(map);
 
+        marker._photoId = id; // Tag marker with photo ID
         imageMarkers.push(marker);
     });
 }
