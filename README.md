@@ -1,4 +1,4 @@
-# Galerie Vintage - Objets Trouvés
+# Galerie de Photos
 
 A beautiful, simple photo gallery showcasing vintage objects. Built with pure HTML, CSS, and minimal JavaScript - no frameworks required.
 
