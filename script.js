@@ -204,6 +204,10 @@ function renderGallery() {
 
     renderCityMenu(filteredData);
     updateLayoutSizes();
+    
+    // Show back button if viewing a subset of photos
+    const isSubset = filteredData.length < galleryData.length;
+    showBackButton(isSubset);
 }
 
 
@@ -248,7 +252,10 @@ function renderCityMenu(items) {
         }
     });
 
-    if (cities.length === 0) return;
+    if (cities.length === 0) {
+        updateCityMenuScrollState();
+        return;
+    }
 
     cities.forEach(city => {
         const pill = document.createElement('button');
@@ -256,27 +263,101 @@ function renderCityMenu(items) {
         pill.textContent = city;
 
         pill.addEventListener('click', () => {
-            // Find the banner for this city
-            // Banners don't have IDs, but we can search for the text content in city-banner elements
-            const banners = document.querySelectorAll('.city-banner');
-            for (const banner of banners) {
-                if (banner.textContent.trim() === city) {
-                    // Scroll to it with offset for sticky header
-                    const headerOffset = 180; // approximate header height
-                    const elementPosition = banner.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
+            // Zoom the map to fit all photos of this origin
+            if (map) {
+                const cityItems = galleryData.filter(item => item.origin === city && item.coordinates);
+                if (cityItems.length > 0) {
+                    const bounds = new maplibregl.LngLatBounds();
+                    cityItems.forEach(item => bounds.extend([item.coordinates.lng, item.coordinates.lat]));
+                    map.fitBounds(bounds, {
+                        padding: { top: 80, bottom: 50, left: 50, right: 50 },
+                        maxZoom: 14,
+                        duration: 1000
                     });
-                    return;
                 }
             }
         });
 
         cityMenu.appendChild(pill);
     });
+
+    // Setup scroll state detection after rendering
+    updateCityMenuScrollState();
+}
+
+// Update city menu scroll state (arrows visibility and fade effect)
+function updateCityMenuScrollState() {
+    const cityMenu = document.getElementById('city-menu');
+    const wrapper = document.querySelector('.city-menu-wrapper');
+    if (!cityMenu || !wrapper) return;
+
+    const checkScroll = () => {
+        const hasOverflow = cityMenu.scrollWidth > cityMenu.clientWidth;
+        const scrollLeft = cityMenu.scrollLeft;
+        const maxScroll = cityMenu.scrollWidth - cityMenu.clientWidth;
+
+        // Toggle class for overflow (controls fade effect)
+        wrapper.classList.toggle('has-overflow', hasOverflow);
+        
+        // Toggle arrow visibility
+        wrapper.classList.toggle('can-scroll-left', scrollLeft > 5);
+        wrapper.classList.toggle('can-scroll-right', scrollLeft < maxScroll - 5);
+    };
+
+    // Check on scroll
+    cityMenu.removeEventListener('scroll', checkScroll);
+    cityMenu.addEventListener('scroll', checkScroll);
+
+    // Setup arrow click handlers
+    const leftArrow = wrapper.querySelector('.city-menu-arrow-left');
+    const rightArrow = wrapper.querySelector('.city-menu-arrow-right');
+
+    if (leftArrow) {
+        leftArrow.onclick = () => {
+            cityMenu.scrollBy({ left: -150, behavior: 'smooth' });
+        };
+    }
+    if (rightArrow) {
+        rightArrow.onclick = () => {
+            cityMenu.scrollBy({ left: 150, behavior: 'smooth' });
+        };
+    }
+
+    // Initial check
+    setTimeout(checkScroll, 50);
+}
+
+// Show/hide back button
+function showBackButton(visible) {
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        backBtn.classList.toggle('visible', visible);
+    }
+}
+
+// Restore map to show all photos
+function restoreFullView() {
+    if (map) {
+        const itemsWithCoords = galleryData.filter(item => item.coordinates);
+        if (itemsWithCoords.length > 0) {
+            const bounds = new maplibregl.LngLatBounds();
+            itemsWithCoords.forEach(item => bounds.extend([item.coordinates.lng, item.coordinates.lat]));
+            map.fitBounds(bounds, {
+                padding: { top: 80, bottom: 50, left: 50, right: 50 },
+                maxZoom: 10,
+                duration: 1000
+            });
+        }
+    }
+}
+
+// Update scroll-top button visibility based on scroll position
+function updateScrollTopVisibility() {
+    const scrollTopBtn = document.getElementById('scroll-top');
+    if (scrollTopBtn) {
+        const isScrolled = window.scrollY > 100;
+        scrollTopBtn.classList.toggle('visible', isScrolled);
+    }
 }
 
 // Add map control buttons (style toggle + 3D view toggle)
@@ -833,9 +914,25 @@ function parsePx(val) {
     return parseFloat(val) || 0;
 }
 
+// Calculate and update the sticky offset based on header height
+function updateStickyOffset() {
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    // Get the actual computed height of the header
+    const headerHeight = header.offsetHeight;
+    const offset = headerHeight + 32; // Add gap margin (2rem = 32px)
+
+    document.documentElement.style.setProperty('--sticky-offset', `${offset}px`);
+    return offset;
+}
+
 function updateLayoutSizes() {
     const gallery = document.querySelector('.gallery');
     if (!gallery) return;
+
+    // First, ensure sticky offset is correct
+    updateStickyOffset();
 
     // Map tile height for grid view
     if (!document.body.classList.contains('view-split')) {
@@ -901,7 +998,13 @@ function updateLayoutSizes() {
 
         if (mapTile) {
             mapTile.style.gridColumnStart = columns + 1;
-            mapTile.style.gridRow = '1 / 1000';
+            // Calculate actual number of grid items (cards + banners) to determine rows needed
+            const cards = gallery.querySelectorAll('.card');
+            const banners = gallery.querySelectorAll('.city-banner');
+            const totalItems = cards.length + banners.length;
+            // Each row can hold 'columns' items, so calculate rows needed
+            const rowsNeeded = Math.max(2, Math.ceil(totalItems / columns) + 1);
+            mapTile.style.gridRow = `1 / ${rowsNeeded + 1}`;
         }
 
         const banners = gallery.querySelectorAll('.city-banner');
@@ -930,7 +1033,10 @@ function updateLayoutSizes() {
 }
 
 const debouncedUpdateLayout = debounce(updateLayoutSizes, 120);
-window.addEventListener('resize', debouncedUpdateLayout);
+window.addEventListener('resize', () => {
+    debouncedUpdateLayout();
+    updateCityMenuScrollState();
+});
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
@@ -1006,6 +1112,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 behavior: 'smooth'
             });
         });
+    }
+
+    // Listen for scroll to show/hide scroll-top button
+    window.addEventListener('scroll', updateScrollTopVisibility);
+
+    // Back Button
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        backBtn.addEventListener('click', restoreFullView);
     }
 
     // Click outside modal

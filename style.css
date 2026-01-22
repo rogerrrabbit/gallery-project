@@ -12,6 +12,7 @@
     --banner-text-color: #4c51bf;
     --left-width: 340px;
     --map-tile-height: auto;
+    --sticky-offset: 7rem;
 }
 
 body {
@@ -527,8 +528,7 @@ header p {
     color: var(--banner-text-color);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     position: sticky;
-    top: 7rem;
-    /* Below header */
+    top: var(--sticky-offset);
     z-index: 50;
     display: flex;
     align-items: center;
@@ -544,18 +544,16 @@ header p {
     margin-right: 1rem;
 }
 
-/* ===== View Toggle & Scroll Buttons ===== */
-.view-toggle {
+/* ===== Header Buttons (view toggle, scroll top, back) ===== */
+.header-btn {
     position: fixed;
     top: 1.5rem;
-    right: 2rem;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: white;
-    width: 44px;
     height: 44px;
     padding: 0;
-    border-radius: 50%;
+    border-radius: 22px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -566,20 +564,53 @@ header p {
     z-index: 1100;
 }
 
+.city-menu-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    max-width: 100vw;
+    position: relative;
+}
+
+.city-menu-arrow {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.city-menu-arrow:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.city-menu-wrapper.can-scroll-left .city-menu-arrow-left,
+.city-menu-wrapper.can-scroll-right .city-menu-arrow-right {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .city-menu {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 0.5rem;
-    margin-top: 0.5rem;
 
     /* "Centered if fits, Scrollable if overflow" logic */
     width: fit-content;
-    max-width: 100vw;
-    /* Use full viewport width */
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0.5rem 1rem;
+    max-width: calc(100vw - 100px);
+    padding: 0.5rem 0.5rem;
 
     /* Hide scrollbars */
     scrollbar-width: none;
@@ -587,10 +618,22 @@ header p {
 
     /* Smooth scrolling on touch */
     -webkit-overflow-scrolling: touch;
+}
 
-    /* Fade mask at edges */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+/* Fade mask only on the side where scrolling is possible */
+.city-menu-wrapper.can-scroll-left.can-scroll-right .city-menu {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.city-menu-wrapper.can-scroll-left:not(.can-scroll-right) .city-menu {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 100%);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 100%);
+}
+
+.city-menu-wrapper.can-scroll-right:not(.can-scroll-left) .city-menu {
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 92%, transparent);
+    mask-image: linear-gradient(to right, black 0%, black 92%, transparent);
 }
 
 .city-menu::-webkit-scrollbar {
@@ -617,17 +660,46 @@ header p {
 }
 
 /* Hide in split view if desired, or keep it? For now, keep it as it's useful. */
-body.view-split .city-menu {
-    display: none;
+/* City menu visible in both views */
+
+.header-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
 }
 
-.view-toggle:hover {
-    background: rgba(255, 255, 255, 0.4);
-    transform: scale(1.1);
+.view-toggle {
+    right: 2rem;
+    width: 44px;
 }
 
 .scroll-top {
     right: 5.5rem;
+    width: 44px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.back-button {
+    left: 2rem;
+    padding: 0 1rem 0 0.75rem;
+    gap: 0.25rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.back-button.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.back-button span {
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 /* ===== Split View Mode ===== */
@@ -639,24 +711,23 @@ body.view-split .gallery {
     /* Remove top padding to lock map immediately */
     gap: 2rem;
     align-items: start;
+    align-content: start;
+    margin-top: 0;
 }
 
 body.view-split .map-tile {
     grid-column: 2;
     /* Map on Right */
-    grid-row: 1 / 1000;
+    grid-row: 1 / -1;
     /* Fixed height relative to viewport to prevent sliding */
-    height: calc(100vh - 8rem);
-    /* Slightly shorter to avoid scroll issues */
+    height: calc(100vh - var(--sticky-offset) - 2rem);
     aspect-ratio: auto;
     position: sticky;
-    top: 7rem;
-    /* Stick below the header (matches city-banner) */
+    top: var(--sticky-offset);
     align-self: start;
     /* Ensure it sticks to top */
     z-index: 40;
-    margin-top: 2rem;
-    /* Match city-banner margin-top */
+    margin-top: 0;
 }
 
 /* In grid (non-split) view the map height is set to match a single photo tile */
@@ -675,8 +746,9 @@ body.view-split .city-banner {
     grid-column: 1;
     /* Banners on Left */
     /* Adjust top to stick below header within the scrolling column */
-    top: 7rem;
+    top: var(--sticky-offset);
     z-index: 45;
+    margin-top: 0;
 }
 
 /* Responsive adjustments for Split View */
@@ -702,9 +774,12 @@ body.view-split .city-banner {
     body.view-split .map-tile {
         grid-column: 1 / -1;
         grid-row: auto;
-        height: auto;
-        aspect-ratio: 1;
-        position: static;
+        height: 250px;
+        aspect-ratio: auto;
+        position: sticky;
+        top: var(--sticky-offset);
+        z-index: 40;
+        margin-bottom: 1rem;
     }
 
     body.view-split .card,
